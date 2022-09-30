@@ -9,6 +9,10 @@ plugins {
     id 'com.google.firebase.crashlytics'
 }
 
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
 android {
     compileSdkVersion 32
     buildToolsVersion "30.0.3"
@@ -19,6 +23,7 @@ android {
         targetSdkVersion 32
         versionCode 14
         versionName "1.0.0"
+        testInstrumentationRunner "io.qameta.allure.android.runners.AllureAndroidJUnitRunner"
     }
 
     compileOptions {
@@ -47,6 +52,23 @@ android {
 }
 
 dependencies {
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.4.0'
+    implementation 'com.github.blocoio:faker:1.2.9'
+    testImplementation 'com.github.blocoio:faker:1.2.9'
+    androidTestImplementation 'com.github.blocoio:faker:1.2.9'
+
+    def allure_version = '2.4.0'
+    androidTestImplementation "io.qameta.allure:allure-kotlin-model:$allure_version"
+    androidTestImplementation "io.qameta.allure:allure-kotlin-commons:$allure_version"
+    androidTestImplementation "io.qameta.allure:allure-kotlin-junit4:$allure_version"
+    androidTestImplementation "io.qameta.allure:allure-kotlin-android:$allure_version"
+
+
     def retrofit_version = "2.9.0"
     def retrofit_gson_version = "2.9.0"
     def okhttp_logging_version = "4.9.2"
@@ -91,4 +113,4 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.0.3')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
-}
+    }
