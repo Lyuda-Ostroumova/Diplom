@@ -119,6 +119,7 @@ public class ClaimsTest {
         commonSteps.clickOkBtn();
         SystemClock.sleep(2000);
         claimsSteps.openClaimIndex(index);
+        SystemClock.sleep(5000);
         claimsSteps.checkClaimStatus("Open");
     }
 
@@ -131,6 +132,7 @@ public class ClaimsTest {
         commonSteps.clickOkBtn();
         SystemClock.sleep(5000);
         claimsSteps.openClaimIndex(index);
+        SystemClock.sleep(5000);
         claimsSteps.checkClaimStatus("In progress");
     }
 
@@ -145,6 +147,7 @@ public class ClaimsTest {
         commonSteps.clickOkBtn();
         SystemClock.sleep(5000);
         claimsSteps.openClaimIndex(index);
+        SystemClock.sleep(5000);
         claimsSteps.checkClaimStatus("Executed");
     }
 
@@ -159,6 +162,7 @@ public class ClaimsTest {
         commonSteps.clickOkBtn();
         SystemClock.sleep(8000);
         claimsSteps.openClaimIndex(index);
+        SystemClock.sleep(5000);
         claimsSteps.checkClaimStatus("Canceled");
     }
 
