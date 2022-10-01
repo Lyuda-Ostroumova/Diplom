@@ -660,7 +660,6 @@ public class ClaimsTest {
         commentSteps.addComment(initialComment);
         commonSteps.clickSave();
         SystemClock.sleep(5000);
-        claimsSteps.openClaimIndex(index);
         claimsSteps.clickCommentEditBtn(index);
         commentSteps.addComment(editedComment);
         commonSteps.clickSave();
@@ -673,6 +672,7 @@ public class ClaimsTest {
     public void shouldCancelCommentEditing() {
         int position = 0;
         int index = 0;
+        int commentIndex = 0;
         String initialComment = resources.commentCyr;
         String editedComment = resources.editedComment;
         String executor = randomExecutor();
@@ -692,10 +692,9 @@ public class ClaimsTest {
         commentSteps.addComment(initialComment);
         commonSteps.clickSave();
         SystemClock.sleep(3000);
-        claimsSteps.openClaimIndex(index);
         String initialCommentContent = claimsSteps.getClaimComment(position);
         SystemClock.sleep(3000);
-        claimsSteps.clickCommentEditBtn(index);
+        claimsSteps.clickCommentEditBtn(commentIndex);
         commentSteps.addComment(editedComment);
         commonSteps.clickCancel();
         SystemClock.sleep(3000);
@@ -724,6 +723,7 @@ public class ClaimsTest {
         claimsSteps.clickAddComment();
         commentSteps.isCommentScreen();
         commonSteps.clickCancel();
+        SystemClock.sleep(3000);
         claimsSteps.statusIconIsDisplayed();
     }
 
