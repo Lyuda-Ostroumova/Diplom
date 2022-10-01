@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.steps.SplashScreenSteps;
@@ -21,6 +22,7 @@ public class SplashScreenTest {
 
     @Test
     @DisplayName("Проверить наличие элементо на экране")
+    @Description("Корректность отображения всех элементов приветственного экрана ")
     public void shouldCheckSplashScreen() {
         splashScreenSteps.isSplashScreen();
     }

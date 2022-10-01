@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Helper;
@@ -44,6 +45,7 @@ public class AboutUsTest {
 
     @Test
     @DisplayName("Проверка элементов экрана")
+    @Description("Корректность отображения всех элементов экрана About us")
     public void shouldCheckAboutUsScreenElements() {
         aboutUsSteps.isAboutUsScreen();
     }
@@ -57,6 +59,7 @@ public class AboutUsTest {
 
     @Test
     @DisplayName("Вернуться на предыдущий экран")
+    @Description("При нажатии на стрелочку на верхней панели пользователь возвращается на предыдущий экран")
     public void shouldCheckGoBackToPreviousScreen() {
         aboutUsSteps.clickReturnBtn();
         mainScreenSteps.isMainScreen();

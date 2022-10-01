@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
@@ -48,12 +49,14 @@ public class AuthTest {
 
     @Test
     @DisplayName("Проверка элементов экрана авторизации")
+    @Description("Корректность отображения всех элементов экрана Авторизация")
     public void shouldCheckAuthScreenElements() {
         authSteps.isAuthScreen();
     }
 
     @Test
     @DisplayName("Вход с валидными данными")
+    @Description("При вводе валидного логина и пароля пользователь переходит на главный экран")
     public void shouldLogInWithValidData() {
         authSteps.authWithValidData(authInfo());
         authSteps.clickSignInBtn();
@@ -63,6 +66,7 @@ public class AuthTest {
 
     @Test
     @DisplayName("Сообщение об ошибке при авторизации с невалидными данными")
+    @Description("При вводе невалидных значений логина и пароля всплывает соощение о неверных данных")
     public void shouldNotLogInWithInvalidData() {
         authSteps.authWithInvalidData(authInfo());
         authSteps.clickSignInBtn();
@@ -71,6 +75,7 @@ public class AuthTest {
 
     @Test
     @DisplayName("Сообщение об ошибке при авторизации с пустыми данными")
+    @Description("При попытке авторизоваться с пустыми логином и паролем пользователь не авторизуется, вплывает сообщение о незаполненных полях")
     public void shouldNotLogInWithEmptyData() {
         authSteps.clickSignInBtn();
         commonSteps.checkEmptyToast(R.string.empty_login_or_password, true);
@@ -78,6 +83,7 @@ public class AuthTest {
 
     @Test
     @DisplayName("Сообщение об ошибке при авторизации с пустым логином")
+    @Description("При попытке авторизации с пустым логином пользователь не авторизуется, всплывает собщение о незаполненом поле")
     public void shouldNotLogInWithEmptyLogin() {
         authSteps.authWithEmptyLogin(authInfo());
         authSteps.clickSignInBtn();
@@ -86,6 +92,7 @@ public class AuthTest {
 
     @Test
     @DisplayName("Сообщение об ошибке при авторизации с пустым паролем")
+    @Description("При попытке авторизации с пустым паролеи пользователь не авторизуется, всплывает собщение о незаполненом поле")
     public void shouldNotLogInWithEmptyPassword() {
         authSteps.authWithEmptyPass(authInfo());
         authSteps.clickSignInBtn();
@@ -94,6 +101,7 @@ public class AuthTest {
 
     @Test
     @DisplayName("Сообщение об ошибке при авторизации с невалидным паролем")
+    @Description("При попытке авторизации с невалидным паролем пользователь не авторизуется, всплывает собщение о неверно заполненном поле")
     public void shouldNotLogInWithInvalidPass() {
         authSteps.authWithInvalidPass(authInfo());
         authSteps.clickSignInBtn();
@@ -102,6 +110,7 @@ public class AuthTest {
 
     @Test
     @DisplayName("Сообщение об ошибке при авторизации с невалидным логином")
+    @Description("При попытке авторизации с невалидным логином пользователь не авторизуется, всплывает собщение о неверно заполненном поле")
     public void shouldNotLogInWithInvalidLogin() {
         authSteps.authWithInvalidLogin(authInfo());
         authSteps.clickSignInBtn();
@@ -110,6 +119,7 @@ public class AuthTest {
 
     @Test
     @DisplayName("Авторизация и выход ")
+    @Description("Пользователь авторизуется с валидными данными и выходит из приложения с помощью кнопки Log out")
     public void shouldLogInAndLogOut() {
         authSteps.authWithValidData(authInfo());
         authSteps.clickSignInBtn();

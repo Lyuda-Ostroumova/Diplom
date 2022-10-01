@@ -8,7 +8,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import android.os.SystemClock;
 
 import io.qameta.allure.kotlin.Allure;
-import ru.iteco.fmhandroid.ui.screenElements.CommonElements;
 import ru.iteco.fmhandroid.ui.screenElements.EditClaimsScreen;
 
 public class EditClaimSteps {

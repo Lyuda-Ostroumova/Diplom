@@ -18,6 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Resources;
@@ -63,12 +64,14 @@ public class MainScreenTest {
 
     @Test
     @DisplayName("Проверка элементов экрана")
+    @Description("Проверка корректности отображения всех элементов экаран Main")
     public void shouldCheckMainScreenElements() {
         mainScreenSteps.isMainScreen();
     }
 
     @Test
     @DisplayName("Проверка списка вкладок кнопки меню")
+    @Description("При нажатии на кнопку меню в выпадающем списке есть разделы Main, Claims, News, About")
     public void shouldCheckActionMenuScreenList() {
         mainScreenSteps.clickActionMenuBtn();
         mainScreenSteps.checkMenuList();
@@ -76,6 +79,7 @@ public class MainScreenTest {
 
     @Test
     @DisplayName("Переход по вкладкам с помощью кнопки меню")
+    @Description("При нажатии на название экрана в выпадающем списке кнопки меню, пользователь переходит на соответствующую вкладку приложения")
     public void shouldCheckTransitionToScreensViaMenuBtn() {
         mainScreenSteps.goToClaimsScreen();
         claimsSteps.isClaimsScreen();
@@ -89,6 +93,7 @@ public class MainScreenTest {
 
     @Test
     @DisplayName("Переход на вкладку Love is all")
+    @Description("При нажатии на кнопку в виде бабочки пользователь переходит на вкладку Love is all")
     public void shouldCheckTransitionToOurMissionScreen() {
         mainScreenSteps.clickOurMissionBtn();
         ourMissionSteps.isOurMissionScreen();
@@ -96,6 +101,7 @@ public class MainScreenTest {
 
     @Test
     @DisplayName("Выход из приложения")
+    @Description("При нажатии на кнопку в виде человечка пользователь может выйти из приложения")
     public void shouldCheckLogOut() {
         mainScreenSteps.clickLogOutBtn();
         authSteps.isAuthScreen();
@@ -103,6 +109,7 @@ public class MainScreenTest {
 
     @Test
     @DisplayName("Перейти на вкладку Новости с помощью All News и вернутся обратно")
+    @Description("При нажатии на вкладке основного экрана кнопки All News пользователь переходит на вкладку News и может вернуться на оснвоной экран")
     public void shouldCheckAllNewsBtn() {
         mainScreenSteps.clickAllNews();
         newsSteps.isNewsScreen();
@@ -112,6 +119,7 @@ public class MainScreenTest {
 
     @Test
     @DisplayName("Перейти на вкладку Заявки с помощью All Claims и вернутся обратно")
+    @Description("При нажатии на вкладке основного экрана кнопки All Claims пользователь переходит на вкладку Claims и может вернуться на оснвоной экран")
     public void shouldCheckAllClaimsBtn() {
         mainScreenSteps.clickAllClaims();
         claimsSteps.isClaimsScreen();
@@ -121,6 +129,7 @@ public class MainScreenTest {
 
     @Test
     @DisplayName("Развернуть/свернуть блок новостей")
+    @Description("При нажатии на блок новостей новости сворачиваются, при повтороноа нажатии - разворачиваются")
     public void shouldShowOrHideNewsBlock() {
         mainScreenSteps.expandAllNews(); // свернуть новости
         mainScreenSteps.allNewsNotDisplayed();
@@ -130,6 +139,7 @@ public class MainScreenTest {
 
     @Test
     @DisplayName("Развернуть/свернуть блок заявок")
+    @Description("При нажатии на блок претензий претензии сворачиваются, при повтороноа нажатии - разворачиваются")
     public void shouldShowOrHideClaimsBlock() {
         mainScreenSteps.expandAllClaims(); // свернуть заявки
         mainScreenSteps.allClaimsNotDisplayed();
@@ -139,6 +149,7 @@ public class MainScreenTest {
 
     @Test
     @DisplayName("Перейти к созданию заявки и вернуться обратно на главный экран")
+    @Description("При нажатии на кнопку + пользователь переходит на экран создания претензии. При нажатии Cancel возвращается обратно на основной экран")
     public void shouldCheckNewClaimBtn() {
         mainScreenSteps.clickNewClaimBtn();
         createClaim.isCreatingClaimScreen();
@@ -149,6 +160,7 @@ public class MainScreenTest {
 
     @Test
     @DisplayName("Создать заявку через кнопку +")
+    @Description("Создание претнезии через кнопку +. Претензия появляется на сновоном экране")
     public void shouldCreateClaimViaPlusBtn() {
         String executor = randomExecutor();
         String title = resources.claimTitleCyr;
@@ -161,6 +173,7 @@ public class MainScreenTest {
         createClaim.fillInTime("01:00");
         createClaim.fillItDescription(description);
         commonSteps.clickSave();
+        SystemClock.sleep(3000);
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         mainScreenSteps.clickFirstClaimInTheList();
         assertEquals(title, claimsSteps.getClaimTitle());
@@ -169,6 +182,7 @@ public class MainScreenTest {
 
     @Test
     @DisplayName("Развернуть отдельную новость")
+    @Description("При нажатии на отдельную новотсь разворачивается ее содержание")
     public void shouldExpandAndHideSingleNews() {
         int position = random(0, 1, 2);
         mainScreenSteps.expandSingleNews(position);
@@ -177,6 +191,7 @@ public class MainScreenTest {
 
     @Test
     @DisplayName("Развернуть/свернуть отдельную заявку")
+    @Description("При нажатии на претензию открывается окно с претензией и ее содержанием")
     public void shouldExpandSingleClaim() {
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         mainScreenSteps.clickFirstClaimInTheList();

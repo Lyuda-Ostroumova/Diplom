@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
@@ -62,12 +63,14 @@ public class NewsTest {
 
     @Test
     @DisplayName("Проерка элементов экрана News")
+    @Description("Корректность отображения всех элементов экарна News")
     public void shouldCheckNewsScreenElements() {
         newsSteps.isNewsScreen();
     }
 
     @Test
     @DisplayName("Проверка сортировки")
+    @Description("При нажатии на кнопку сортировки меняется порядок отображения новостей по дате создания новости")
     public void shouldSortNews() {
         int position = 0;
         String firstNewsTitle = newsSteps.getFirstNewsTitle(position);
@@ -81,6 +84,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Развернуть любую новость")
+    @Description("При нажатии на новость разворачивается ее содержание")
     public void shouldShowNewsContent() {
         int position = random(0, 1, 2, 3);
         newsSteps.openNews(position);
@@ -89,6 +93,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Фильтр по дате")
+    @Description("Отображабтся только те новости, которые были созданы в указанный промежуток времени")
     public void shouldFilterByDate() {
         String newsDate = resources.newsPublicationDate;
         newsSteps.openFilter();
@@ -101,6 +106,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Нет новостей, соответствующих критериям")
+    @Description("При отсуствии новостей, удовлетворяющим критериям поиска (дате создания), на экране видна надпись There is nothing here yet")
     public void shouldShowNothingToShowScreen() {
         String newsDate = resources.dateForNonExistentNews;
         newsSteps.openFilter();
@@ -114,6 +120,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Отмена фильтрации")
+    @Description("Выход из экрана фильтра без фильтрации новостей")
     public void shouldCancelFilter() {
         String newsDate = resources.newsPublicationDate;
         newsSteps.openFilter();
@@ -125,6 +132,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Перейти в панель управления")
+    @Description("При нажатии на кнопку в виде блокнота с карандашом пользователь переходит на вкладку Control panel")
     public void shouldTransferToControlPanel() {
         newsSteps.clickEditBtn();
         controlPanelSteps.isControlPanelScreen();
@@ -132,6 +140,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Изменить порядок отображения новостей в панели управления")
+    @Description("При нажатии на кнопку сортировки меняется порядок отображения новостей по дате создания новости")
     public void shouldChangeNewsOrder() {
         newsSteps.clickEditBtn();
         controlPanelSteps.checkControlPanelSorting();
@@ -139,6 +148,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Проверка чек-боксов расширенного фильтра")
+    @Description("При нажатии на чек-боксы они становятся неактивными")
     public void shouldOpenFilter() {
         newsSteps.clickEditBtn();
         controlPanelSteps.openNewsFilterScreen();
@@ -150,6 +160,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Фильтр новостей через панель управления по статусу")
+    @Description("При фильтре новостей по статусу Active/Not Active в списке новостей отображаются только новости с этим статусом")
     public void shouldCheckFilteredNewsStatus() {
         newsSteps.clickEditBtn();
         controlPanelSteps.openNewsFilterScreen();
@@ -166,6 +177,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Нет новостей, соответствующих критериям, в панели управления")
+    @Description("При отсутсвии новостей, удовлетворяющим критериям поиска, пользователь видит экран с надписьб There is nothing here yet")
     public void shouldShowNothingToShowScreenInControlPanel() {
         String newsDate = resources.dateForNonExistentNews;
         newsSteps.clickEditBtn();
@@ -179,6 +191,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Отмена фильтра новостей через панель управления")
+    @Description("Выход из фильтра с помощью кнопки отмена")
     public void shouldCancelFiltering() {
         newsSteps.clickEditBtn();
         controlPanelSteps.openNewsFilterScreen();
@@ -189,6 +202,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Создать новость на кирилице")
+    @Description("При заполнении текстовых полей данным на кириллице и вводе валидных значений в поля с датой и временем создается новость на кириллице")
     public void shouldCreateNewsCyr() {
         int position = 0;
         String titleText = resources.newsTitleCyr;
@@ -210,6 +224,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Создать новость на латинице")
+    @Description("При заполнении текстовых полей данным на латинице и вводе валидных значений в поля с датой и временем создается новость на латинице")
     public void shouldCreateNewsLatin() {
         int position = 0;
         String titleText = resources.newsTitleLatin;
@@ -230,6 +245,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Создать новость со спец символами")
+    @Description("При заполнении текстовых полей спец символами и вводе валидных значений в поля с датой и временем новость не создается")
     public void shouldCreateNewsWithSymbols() {
         String titleText = resources.newsTitleSymbols;
         String descriptionText = resources.newsDescriptionSymbols;
@@ -244,6 +260,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Создать новость с пробелами")
+    @Description("При заполнении текстовых полей пробелом новость не создается, всплывает предупреждение о необходимости зполнить поля")
     public void shouldCreateNewsWithSpaces() {
         String titleText = resources.newsTitleSpace;
         String descriptionText = resources.newsDescriptionSpace;
@@ -257,6 +274,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Создать новость с пустым полем Description")
+    @Description("При незаполненном поле Description новсть не создается, всплывает предупреждение о необходимости заоплнить поле")
     public void shouldNotCreateNewsWithEmptyDescription() {
         String titleText = resources.newsTitleCyr;
         String descriptionText = "";
@@ -270,6 +288,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Создать новость с пустыми полями")
+    @Description("Новость с пустыми полями не создается, всплывает предупреждение о необходимости заполнить поля полях")
     public void shouldNotCreateNewsWithEmptyFields() {
         newsSteps.clickEditBtn();
         controlPanelSteps.clickCreateNewsBtn();
@@ -280,6 +299,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Создать новость с ручным вводом невалидного часа")
+    @Description("При ручном вводе невалидного часа при создании новости всплывает предупреждение о невалидном значении времени")
     public void shouldShowInvalidHourWarning() {
         newsSteps.clickEditBtn();
         controlPanelSteps.clickCreateNewsBtn();
@@ -293,6 +313,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Создать новость с ручным вводом невалидных минут")
+    @Description("При ручном вводе невалидного знаяения минут при создании новости всплывает предупреждение о невалидном значении времени")
     public void shouldShowInvalidMinuteWarning() {
         newsSteps.clickEditBtn();
         controlPanelSteps.clickCreateNewsBtn();
@@ -306,6 +327,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Отменить создание новости")
+    @Description("При нажатии на кнопку отмены и подтверждения отмены новость не создается")
     public void shouldCancelNewsCreation() {
         newsSteps.clickEditBtn();
         controlPanelSteps.clickCreateNewsBtn();
@@ -319,6 +341,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Отменить создание новости и вернуться к созданию")
+    @Description("При нажатии на кнопку отмены без подтверждения пользователь продолжает создание новости")
     public void shouldCancelNewsCreationAndReturn() {
         newsSteps.clickEditBtn();
         controlPanelSteps.clickCreateNewsBtn();
@@ -330,9 +353,9 @@ public class NewsTest {
         createNewsSteps.isCreatingNewsScreen();
     }
 
-
     @Test
     @DisplayName("Изменить статус созданной новости")
+    @Description("При нажатии на редактирование можно изменить статус новости с Active на Not Active и обратно. Новость отображается с новым статусом")
     public void shouldEditNews() {
         int position = 0;
         newsSteps.clickEditBtn();
@@ -353,6 +376,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Редактирование новости")
+    @Description("При нажатии на редактирвание новости и изменение данных новость отображается с новыми данными")
     public void shouldEditNewsTitleAndDescription() {
         int position = 0;
         String newTitle = "Новое название";
@@ -374,6 +398,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Отмена редактирование новости")
+    @Description("При нажатии кнопки отмены и пожтверждении отмены редактирования новость не изменятеся")
     public void shouldCancelNewsEditing() {
         int position = 0;
         String newTitle = "Новое название";
@@ -395,6 +420,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Отмена редактирование новости и возврат к редактированию")
+    @Description("Если отмена редактирования не подтверждается, редактирование новсти может быть продолжено")
     public void shouldCancelNewsEditingAndReturnToEditing() {
         int position = 0;
         String newTitle = "Новое название";
@@ -415,6 +441,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Удаление новости")
+    @Description("При нажатии и подтверждении удаления новость удаляется")
     public void shouldDeleteNews() {
         String title = "Удаленная новость";
         newsSteps.clickEditBtn();
@@ -429,18 +456,20 @@ public class NewsTest {
 
     @Test
     @DisplayName("Отмена удаления новости")
+    @Description("Если отмена не подтверждена, новость не удаляется")
     public void shouldCancelDeleting() {
+        String title = "Неудаленная новость";
         int position = 0;
         newsSteps.clickEditBtn();
         controlPanelSteps.clickCreateNewsBtn();
-        createNewsSteps.createNews(randomCategory(), resources.newsTitleCyr, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
+        createNewsSteps.createNews(randomCategory(), title, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
         SystemClock.sleep(2000);
         controlPanelSteps.deleteNews();
         controlPanelSteps.cancelDeleting();
         controlPanelSteps.isControlPanelScreen();
         SystemClock.sleep(2000);
-        controlPanelSteps.checkCreatedNews(position, resources.newsTitleCyr, resources.newsDescriptionCyr);
+        controlPanelSteps.checkCreatedNews(position, title, resources.newsDescriptionCyr);
     }
 
 }
