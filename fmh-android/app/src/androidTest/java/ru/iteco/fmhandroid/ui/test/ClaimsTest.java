@@ -160,7 +160,7 @@ public class ClaimsTest {
         claimsSteps.checkClaimStatus("Executed");
     }
 
-    @Test
+    @Test //NB! Разное написание: в окне фильтра Cancelled, а в статусе Canceled
     @DisplayName("Отфильтровать претензии со статусом Cancelled")
     @Description("При фильтрации претензий по статусу Cancelled отображаются только претензии со статусом Cancelled")
     public void shouldShowCancelledClaims() {
