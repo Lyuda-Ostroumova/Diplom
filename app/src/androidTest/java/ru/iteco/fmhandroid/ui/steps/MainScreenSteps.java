@@ -104,9 +104,9 @@ public class MainScreenSteps {
         mainScreenElements.ourMissionBtn.perform(click());
     }
 
-    public void clickFirstClaimInTheList() {
-        Allure.step("Кликнуть первую претензию");
-        mainScreenElements.claimList.perform(actionOnItemAtPosition(0, click()));
+    public void clickClaimOnMainScreen(int position) {
+        Allure.step("Кликнуть претензию на оснвоном экране");
+        mainScreenElements.claimList.perform(actionOnItemAtPosition(position, click()));
         SystemClock.sleep(3000);
     }
 

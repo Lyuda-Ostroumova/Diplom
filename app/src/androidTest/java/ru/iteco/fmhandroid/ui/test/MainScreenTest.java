@@ -167,15 +167,17 @@ public class MainScreenTest {
         String description = resources.claimDescriptionCyr;
         mainScreenSteps.clickNewClaimBtn();
         createClaim.isCreatingClaimScreen();
-        createClaim.fillInTitle(title);
+       createClaim.fillInTitle(title);
         createClaim.fillInExecutor(executor);
-        createClaim.fillInDate("01.01.1989");
+        createClaim.fillInDate("01.01.1980");
         createClaim.fillInTime("01:00");
         createClaim.fillItDescription(description);
         commonSteps.clickSave();
         SystemClock.sleep(3000);
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
-        mainScreenSteps.clickFirstClaimInTheList();
+        mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
+        mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
+        mainScreenSteps.clickClaimOnMainScreen(1);
         assertEquals(title, claimsSteps.getClaimTitle());
         assertEquals(description, claimsSteps.getClaimDescription());
     }
@@ -194,7 +196,7 @@ public class MainScreenTest {
     @Description("При нажатии на претензию открывается окно с претензией и ее содержанием")
     public void shouldExpandSingleClaim() {
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
-        mainScreenSteps.clickFirstClaimInTheList();
+        mainScreenSteps.clickClaimOnMainScreen(0);
         claimsSteps.statusIconIsDisplayed();
         claimsSteps.returnToPreviousScreen();
         mainScreenSteps.isMainScreen();

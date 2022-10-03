@@ -257,14 +257,14 @@ public class ClaimsTest {
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate("01.01.1988");
+        createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         createClaimSteps.clickTimeField();
-        commonSteps.manualTimeInput("15", "15");
+        commonSteps.manualTimeInput("01", "00");
         commonSteps.clickSave();
         SystemClock.sleep(3000);
         claimsSteps.openClaimIndex(index);
-        assertEquals("15:15", claimsSteps.getClaimTime());
+        assertEquals("01:00", claimsSteps.getClaimTime());
     }
 
     @Test
@@ -301,7 +301,7 @@ public class ClaimsTest {
         claimsSteps.clickNewClaimBtn();
         SystemClock.sleep(3000);
         createClaimSteps.fillInTitle(resources.claimTitle51);
-        createClaimSteps.fillInDate("01.01.1989");
+        createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();
@@ -361,7 +361,7 @@ public class ClaimsTest {
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(title);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate("01.01.1989");
+        createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         ActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         SystemClock.sleep(5000);
@@ -410,7 +410,7 @@ public class ClaimsTest {
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleCyr);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate("01.01.1989");
+        createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionCyr);
         commonSteps.clickSave();
@@ -449,7 +449,7 @@ public class ClaimsTest {
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleCyr);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate("01.01.1989");
+        createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionCyr);
         commonSteps.clickSave();
@@ -487,7 +487,7 @@ public class ClaimsTest {
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleCyr);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate("01.01.1989");
+        createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionCyr);
         commonSteps.clickSave();
@@ -519,7 +519,7 @@ public class ClaimsTest {
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleCyr);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate("01.01.1989");
+        createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionCyr);
         commonSteps.clickSave();
@@ -546,7 +546,7 @@ public class ClaimsTest {
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate("01.01.1989");
+        createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();
@@ -574,7 +574,7 @@ public class ClaimsTest {
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate("01.01.1989");
+        createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();
@@ -599,7 +599,7 @@ public class ClaimsTest {
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate("01.01.1989");
+        createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();
@@ -623,7 +623,7 @@ public class ClaimsTest {
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate("01.01.1989");
+        createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();
@@ -649,7 +649,7 @@ public class ClaimsTest {
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleCyr);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate("01.01.1989");
+        createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionCyr);
         commonSteps.clickSave();
@@ -681,7 +681,7 @@ public class ClaimsTest {
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleCyr);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate("01.01.1989");
+        createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionCyr);
         commonSteps.clickSave();
@@ -713,7 +713,7 @@ public class ClaimsTest {
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate("01.01.1989");
+        createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();
@@ -739,7 +739,7 @@ public class ClaimsTest {
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate("01.01.1989");
+        createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();

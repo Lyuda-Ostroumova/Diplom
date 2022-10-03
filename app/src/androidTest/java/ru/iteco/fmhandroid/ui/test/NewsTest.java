@@ -398,7 +398,7 @@ public class NewsTest {
 
     @Test
     @DisplayName("Отмена редактирование новости")
-    @Description("При нажатии кнопки отмены и пожтверждении отмены редактирования новость не изменятеся")
+    @Description("При нажатии кнопку отмены и подтверждении отмены редактирования новость не изменятеся")
     public void shouldCancelNewsEditing() {
         int position = 0;
         String newTitle = "Новое название";
@@ -449,23 +449,24 @@ public class NewsTest {
         createNewsSteps.createNews(randomCategory(), title, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
         SystemClock.sleep(2000);
-        controlPanelSteps.deleteNews();
+        controlPanelSteps.deleteNews("Удаленная новость");
         controlPanelSteps.confirmDeleting();
         SystemClock.sleep(2000);
+        controlPanelSteps.isControlPanelScreen();
     }
 
     @Test
     @DisplayName("Отмена удаления новости")
     @Description("Если отмена не подтверждена, новость не удаляется")
     public void shouldCancelDeleting() {
-        String title = "Неудаленная новость";
+        String title = "Неудаляемая новость";
         int position = 0;
         newsSteps.clickEditBtn();
         controlPanelSteps.clickCreateNewsBtn();
         createNewsSteps.createNews(randomCategory(), title, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
         SystemClock.sleep(2000);
-        controlPanelSteps.deleteNews();
+        controlPanelSteps.deleteNews(title);
         controlPanelSteps.cancelDeleting();
         controlPanelSteps.isControlPanelScreen();
         SystemClock.sleep(2000);

@@ -1,7 +1,5 @@
 package ru.iteco.fmhandroid.ui.test;
 
-import static ru.iteco.fmhandroid.ui.data.Helper.authInfo;
-
 import android.os.SystemClock;
 
 import androidx.test.espresso.NoMatchingViewException;

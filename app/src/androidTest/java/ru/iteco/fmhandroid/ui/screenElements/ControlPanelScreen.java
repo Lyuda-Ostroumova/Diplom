@@ -27,9 +27,9 @@ public class ControlPanelScreen {
     public ViewInteraction blockOfNews = onView(withId(R.id.news_list_recycler_view));
     public ViewInteraction newsItemTitle = onView(withIndex(withId(R.id.news_item_title_text_view), 0));
     public ViewInteraction newsDescription = onView(withIndex(withId(R.id.news_item_description_text_view), 0));
-    public ViewInteraction deleteNews = onView(allOf(withId(R.id.delete_news_item_image_view),
-            withParent(withParent(allOf(withId(R.id.news_item_material_card_view), withChild(withChild(allOf(withIndex(withId(R.id.news_item_title_text_view), 0)))))))));
-
+    public ViewInteraction deleteNewsBtn(String newsTitle) {
+        return onView(allOf(withId(R.id.delete_news_item_image_view), withParent(withParent(allOf(withId(R.id.news_item_material_card_view), withChild(withChild(withText(newsTitle))))))));
+    }
     public ViewInteraction firstPublicationDate = onView(withIndex(withId(R.id.news_item_publication_date_text_view), 0));
     public ViewInteraction lastPublicationDate = onView(withIndex(withId(R.id.news_item_publication_date_text_view), 0));
     public ViewInteraction firstPublicationDateNotActive = onView(withIndex(withId(R.id.news_item_publication_date_text_view), 0));

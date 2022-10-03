@@ -50,9 +50,10 @@ public class ControlPanelSteps {
         controlPanelScreen.createNewsBtn.perform(click());
     }
 
-    public void deleteNews() {
+    public void deleteNews(String newsTitle) {
         Allure.step("Удалить новость");
-        controlPanelScreen.deleteNews.perform(click());
+        controlPanelScreen.deleteNewsBtn(newsTitle).perform(click());
+
     }
 
     public void confirmDeleting() {
