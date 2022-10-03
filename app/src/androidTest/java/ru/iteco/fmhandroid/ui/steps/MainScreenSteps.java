@@ -4,19 +4,28 @@ package ru.iteco.fmhandroid.ui.steps;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItem;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
+import static androidx.test.espresso.contrib.RecyclerViewActions.scrollTo;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 
+import static ru.iteco.fmhandroid.ui.data.Helper.nestedScrollTo;
 import static ru.iteco.fmhandroid.ui.data.Helper.withIndex;
 
 import android.os.SystemClock;
 
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.assertion.ViewAssertions;
+import androidx.test.espresso.contrib.RecyclerViewActions;
 
 import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
@@ -77,7 +86,7 @@ public class MainScreenSteps {
         String descriptionText = Helper.Text.getText(onView(withIndex(withId(R.id.news_item_description_text_view), position)));
         ViewInteraction newsDescription = onView(allOf(withId(R.id.news_item_description_text_view), withText(descriptionText)));
         newsDescription.check(matches(isDisplayed()));
-       }
+    }
 
     public void clickAllNews() {
         Allure.step("Кликнуть all news");

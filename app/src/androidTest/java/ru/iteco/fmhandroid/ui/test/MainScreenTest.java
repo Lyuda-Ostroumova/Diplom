@@ -118,7 +118,7 @@ public class MainScreenTest {
     }
 
     @Test
-    @DisplayName("Перейти на вкладку Заявки с помощью All Claims и вернутся обратно")
+    @DisplayName("Перейти на вкладку Претензии с помощью All Claims и вернутся обратно")
     @Description("При нажатии на вкладке основного экрана кнопки All Claims пользователь переходит на вкладку Claims и может вернуться на оснвоной экран")
     public void shouldCheckAllClaimsBtn() {
         mainScreenSteps.clickAllClaims();
@@ -138,7 +138,7 @@ public class MainScreenTest {
     }
 
     @Test
-    @DisplayName("Развернуть/свернуть блок заявок")
+    @DisplayName("Развернуть/свернуть блок претензий")
     @Description("При нажатии на блок претензий претензии сворачиваются, при повтороноа нажатии - разворачиваются")
     public void shouldShowOrHideClaimsBlock() {
         mainScreenSteps.expandAllClaims(); // свернуть заявки
@@ -148,7 +148,7 @@ public class MainScreenTest {
     }
 
     @Test
-    @DisplayName("Перейти к созданию заявки и вернуться обратно на главный экран")
+    @DisplayName("Перейти к созданию претензии и вернуться обратно на главный экран")
     @Description("При нажатии на кнопку + пользователь переходит на экран создания претензии. При нажатии Cancel возвращается обратно на основной экран")
     public void shouldCheckNewClaimBtn() {
         mainScreenSteps.clickNewClaimBtn();
@@ -159,15 +159,16 @@ public class MainScreenTest {
     }
 
     @Test
-    @DisplayName("Создать заявку через кнопку +")
+    @DisplayName("Создать претензию через кнопку +")
     @Description("Создание претнезии через кнопку +. Претензия появляется на сновоном экране")
     public void shouldCreateClaimViaPlusBtn() {
+        int position = 1;
         String executor = randomExecutor();
-        String title = resources.claimTitleCyr;
+        String title = "Новость на основном экране";
         String description = resources.claimDescriptionCyr;
         mainScreenSteps.clickNewClaimBtn();
         createClaim.isCreatingClaimScreen();
-       createClaim.fillInTitle(title);
+        createClaim.fillInTitle(title);
         createClaim.fillInExecutor(executor);
         createClaim.fillInDate("01.01.1980");
         createClaim.fillInTime("01:00");
@@ -177,7 +178,8 @@ public class MainScreenTest {
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
-        mainScreenSteps.clickClaimOnMainScreen(1);
+        SystemClock.sleep(3000);
+        mainScreenSteps.clickClaimOnMainScreen(position);
         assertEquals(title, claimsSteps.getClaimTitle());
         assertEquals(description, claimsSteps.getClaimDescription());
     }
@@ -192,7 +194,7 @@ public class MainScreenTest {
     }
 
     @Test
-    @DisplayName("Развернуть/свернуть отдельную заявку")
+    @DisplayName("Развернуть/свернуть отдельную пртенезию")
     @Description("При нажатии на претензию открывается окно с претензией и ее содержанием")
     public void shouldExpandSingleClaim() {
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
