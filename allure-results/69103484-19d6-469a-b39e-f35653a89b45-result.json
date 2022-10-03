@@ -1,0 +1,101 @@
+{
+    "name": "Проверка элементов экрана",
+    "start": 1664737423929,
+    "stop": 1664737440481,
+    "stage": "finished",
+    "description": "Корректность отображения всех элементов экрана About us",
+    "descriptionHtml": null,
+    "status": "passed",
+    "statusDetails": null,
+    "steps": [
+        {
+            "name": "Проверка элементов экрана News",
+            "start": 1664737434364,
+            "stop": 1664737434368,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        },
+        {
+            "name": "Кликнуть название экрана About в выпадающем списке",
+            "start": 1664737436264,
+            "stop": 1664737436264,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        },
+        {
+            "name": "Проверка элементов экрана About us",
+            "start": 1664737438644,
+            "stop": 1664737438644,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        }
+    ],
+    "attachments": [
+    ],
+    "parameters": [
+    ],
+    "uuid": "69103484-19d6-469a-b39e-f35653a89b45",
+    "historyId": "9239f14ffad4c7ff189b4539862c3e8d",
+    "fullName": "ru.iteco.fmhandroid.ui.test.AboutUsTest.shouldCheckAboutUsScreenElements",
+    "labels": [
+        {
+            "name": "package",
+            "value": "ru.iteco.fmhandroid.ui.test"
+        },
+        {
+            "name": "testClass",
+            "value": "ru.iteco.fmhandroid.ui.test.AboutUsTest"
+        },
+        {
+            "name": "testMethod",
+            "value": "shouldCheckAboutUsScreenElements"
+        },
+        {
+            "name": "suite",
+            "value": "ru.iteco.fmhandroid.ui.test.AboutUsTest"
+        },
+        {
+            "name": "host",
+            "value": "localhost"
+        },
+        {
+            "name": "thread",
+            "value": "Instr: io.qameta.allure.android.runners.AllureAndroidJUnitRunner(776)"
+        },
+        {
+            "name": "framework",
+            "value": "junit4"
+        },
+        {
+            "name": "language",
+            "value": "kotlin"
+        }
+    ]
+}

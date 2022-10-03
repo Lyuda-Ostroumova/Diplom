@@ -1,0 +1,85 @@
+{
+    "name": "Проверка элементов экрана авторизации",
+    "start": 1664822121014,
+    "stop": 1664822136097,
+    "stage": "finished",
+    "description": "Корректность отображения всех элементов экрана Авторизация",
+    "descriptionHtml": null,
+    "status": "passed",
+    "statusDetails": null,
+    "steps": [
+        {
+            "name": "Проверка элементов экрана авторизации",
+            "start": 1664822132188,
+            "stop": 1664822132188,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        },
+        {
+            "name": "Проверка элементов экрана авторизации",
+            "start": 1664822132216,
+            "stop": 1664822132216,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        }
+    ],
+    "attachments": [
+    ],
+    "parameters": [
+    ],
+    "uuid": "57b09aa1-6c4f-420c-812d-27ad7bc7ee8d",
+    "historyId": "33192d567f5c73cf299d2407734118c7",
+    "fullName": "ru.iteco.fmhandroid.ui.test.AuthTest.shouldCheckAuthScreenElements",
+    "labels": [
+        {
+            "name": "package",
+            "value": "ru.iteco.fmhandroid.ui.test"
+        },
+        {
+            "name": "testClass",
+            "value": "ru.iteco.fmhandroid.ui.test.AuthTest"
+        },
+        {
+            "name": "testMethod",
+            "value": "shouldCheckAuthScreenElements"
+        },
+        {
+            "name": "suite",
+            "value": "ru.iteco.fmhandroid.ui.test.AuthTest"
+        },
+        {
+            "name": "host",
+            "value": "localhost"
+        },
+        {
+            "name": "thread",
+            "value": "Instr: io.qameta.allure.android.runners.AllureAndroidJUnitRunner(1001)"
+        },
+        {
+            "name": "framework",
+            "value": "junit4"
+        },
+        {
+            "name": "language",
+            "value": "kotlin"
+        }
+    ]
+}

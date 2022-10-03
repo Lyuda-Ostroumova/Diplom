@@ -77,6 +77,7 @@ public class NewsTest {
         newsSteps.clickSortBtn();
         SystemClock.sleep(3000);
         newsSteps.clickSortBtn();
+        SystemClock.sleep(3000);
         String firstNewsTitleAfterSecondSorting = newsSteps.getFirstNewsTitleAfterSecondSorting(position);
         assertEquals(firstNewsTitle, firstNewsTitleAfterSecondSorting);
     }

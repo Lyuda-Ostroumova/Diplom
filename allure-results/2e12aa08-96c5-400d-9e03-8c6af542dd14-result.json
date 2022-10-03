@@ -1,0 +1,133 @@
+{
+    "name": "Перейти на вкладку Новости с помощью All News и вернутся обратно",
+    "start": 1664822487189,
+    "stop": 1664822503889,
+    "stage": "finished",
+    "description": "При нажатии на вкладке основного экрана кнопки All News пользователь переходит на вкладку News и может вернуться на оснвоной экран",
+    "descriptionHtml": null,
+    "status": "passed",
+    "statusDetails": null,
+    "steps": [
+        {
+            "name": "Проверка элементов экрана авторизации",
+            "start": 1664822500138,
+            "stop": 1664822500140,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        },
+        {
+            "name": "Кликнуть all news",
+            "start": 1664822500236,
+            "stop": 1664822500236,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        },
+        {
+            "name": "Проверка элементов экрана News",
+            "start": 1664822500868,
+            "stop": 1664822500868,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        },
+        {
+            "name": "Кликнуть название экрана Main в выпадающем списке",
+            "start": 1664822500872,
+            "stop": 1664822500872,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        },
+        {
+            "name": "Проверка элементов экрана Main",
+            "start": 1664822502415,
+            "stop": 1664822502415,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        }
+    ],
+    "attachments": [
+    ],
+    "parameters": [
+    ],
+    "uuid": "2e12aa08-96c5-400d-9e03-8c6af542dd14",
+    "historyId": "95ee62d560e6922821125dfbfad8c8fb",
+    "fullName": "ru.iteco.fmhandroid.ui.test.MainScreenTest.shouldCheckAllNewsBtn",
+    "labels": [
+        {
+            "name": "package",
+            "value": "ru.iteco.fmhandroid.ui.test"
+        },
+        {
+            "name": "testClass",
+            "value": "ru.iteco.fmhandroid.ui.test.MainScreenTest"
+        },
+        {
+            "name": "testMethod",
+            "value": "shouldCheckAllNewsBtn"
+        },
+        {
+            "name": "suite",
+            "value": "ru.iteco.fmhandroid.ui.test.MainScreenTest"
+        },
+        {
+            "name": "host",
+            "value": "localhost"
+        },
+        {
+            "name": "thread",
+            "value": "Instr: io.qameta.allure.android.runners.AllureAndroidJUnitRunner(1016)"
+        },
+        {
+            "name": "framework",
+            "value": "junit4"
+        },
+        {
+            "name": "language",
+            "value": "kotlin"
+        }
+    ]
+}

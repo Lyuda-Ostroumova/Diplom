@@ -1,0 +1,117 @@
+{
+    "name": "Вернуться на предыдущий экран",
+    "start": 1664737440873,
+    "stop": 1664737456531,
+    "stage": "finished",
+    "description": "При нажатии на стрелочку на верхней панели пользователь возвращается на предыдущий экран",
+    "descriptionHtml": null,
+    "status": "passed",
+    "statusDetails": null,
+    "steps": [
+        {
+            "name": "Проверка элементов экрана News",
+            "start": 1664737452476,
+            "stop": 1664737452478,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        },
+        {
+            "name": "Кликнуть название экрана About в выпадающем списке",
+            "start": 1664737452534,
+            "stop": 1664737452534,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        },
+        {
+            "name": "Проверка кнопки возврат",
+            "start": 1664737453723,
+            "stop": 1664737453723,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        },
+        {
+            "name": "Проверка элементов экрана Main",
+            "start": 1664737455258,
+            "stop": 1664737455258,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        }
+    ],
+    "attachments": [
+    ],
+    "parameters": [
+    ],
+    "uuid": "ca2a0fd8-ce77-43bf-998f-a8996e8419c8",
+    "historyId": "8457c878c250997d8f7bf509281901ac",
+    "fullName": "ru.iteco.fmhandroid.ui.test.AboutUsTest.shouldCheckGoBackToPreviousScreen",
+    "labels": [
+        {
+            "name": "package",
+            "value": "ru.iteco.fmhandroid.ui.test"
+        },
+        {
+            "name": "testClass",
+            "value": "ru.iteco.fmhandroid.ui.test.AboutUsTest"
+        },
+        {
+            "name": "testMethod",
+            "value": "shouldCheckGoBackToPreviousScreen"
+        },
+        {
+            "name": "suite",
+            "value": "ru.iteco.fmhandroid.ui.test.AboutUsTest"
+        },
+        {
+            "name": "host",
+            "value": "localhost"
+        },
+        {
+            "name": "thread",
+            "value": "Instr: io.qameta.allure.android.runners.AllureAndroidJUnitRunner(776)"
+        },
+        {
+            "name": "framework",
+            "value": "junit4"
+        },
+        {
+            "name": "language",
+            "value": "kotlin"
+        }
+    ]
+}

@@ -162,7 +162,7 @@ public class MainScreenTest {
     @DisplayName("Создать претензию через кнопку +")
     @Description("Создание претнезии через кнопку +. Претензия появляется на сновоном экране")
     public void shouldCreateClaimViaPlusBtn() {
-        int position = 1;
+        int position = 0;
         String executor = randomExecutor();
         String title = "Новость на основном экране";
         String description = resources.claimDescriptionCyr;

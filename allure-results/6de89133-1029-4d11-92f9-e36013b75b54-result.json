@@ -1,0 +1,117 @@
+{
+    "name": "Создать заявку через кнопку +",
+    "start": 1664820048565,
+    "stop": 1664820075424,
+    "stage": "finished",
+    "description": "Создание претнезии через кнопку +. Претензия появляется на сновоном экране",
+    "descriptionHtml": null,
+    "status": "passed",
+    "statusDetails": null,
+    "steps": [
+        {
+            "name": "Проверка элементов экрана авторизации",
+            "start": 1664820062751,
+            "stop": 1664820062752,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        },
+        {
+            "name": "Кликнуть претензию на оснвоном экране",
+            "start": 1664820069879,
+            "stop": 1664820069879,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        },
+        {
+            "name": "Получить текст заголовка претензии",
+            "start": 1664820073689,
+            "stop": 1664820073689,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        },
+        {
+            "name": "Получить текст описания претензии",
+            "start": 1664820073695,
+            "stop": 1664820073695,
+            "stage": "finished",
+            "description": null,
+            "descriptionHtml": null,
+            "status": "passed",
+            "statusDetails": null,
+            "steps": [
+            ],
+            "attachments": [
+            ],
+            "parameters": [
+            ]
+        }
+    ],
+    "attachments": [
+    ],
+    "parameters": [
+    ],
+    "uuid": "6de89133-1029-4d11-92f9-e36013b75b54",
+    "historyId": "bf409843e8136f5e01a8f3aec0391aba",
+    "fullName": "ru.iteco.fmhandroid.ui.test.MainScreenTest.shouldCreateClaimViaPlusBtn",
+    "labels": [
+        {
+            "name": "package",
+            "value": "ru.iteco.fmhandroid.ui.test"
+        },
+        {
+            "name": "testClass",
+            "value": "ru.iteco.fmhandroid.ui.test.MainScreenTest"
+        },
+        {
+            "name": "testMethod",
+            "value": "shouldCreateClaimViaPlusBtn"
+        },
+        {
+            "name": "suite",
+            "value": "ru.iteco.fmhandroid.ui.test.MainScreenTest"
+        },
+        {
+            "name": "host",
+            "value": "localhost"
+        },
+        {
+            "name": "thread",
+            "value": "Instr: io.qameta.allure.android.runners.AllureAndroidJUnitRunner(977)"
+        },
+        {
+            "name": "framework",
+            "value": "junit4"
+        },
+        {
+            "name": "language",
+            "value": "kotlin"
+        }
+    ]
+}

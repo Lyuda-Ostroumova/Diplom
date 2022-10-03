@@ -25,12 +25,12 @@ public class Resources {
     public String dateForNonExistentClaim = "12.09.2045";
     public String claimPublicationTime = getCurrentTime();
     public String claimDescriptionLatin = "Claim Description";
-    public String claimDescriptionCyr = "Еда несоленая и холодная";
+    public String claimDescriptionCyr = "Нет горячей воды на 1 этаже";
     public String claimDescriptionSymbols = "#$%^@#&((*";
     public String claimDescriptionSpace = " ";
     public String claimTitleLatin = "Claim Title";
     public String claimTitle51 = "В этом названии теперь больше пятидесяти символов! Но поместится только 50";
-    public String claimTitleCyr = "Плохо кормят";
+    public String claimTitleCyr = "Водоснабжение";
     public String claimTitleSymbols = "#$%^@#&((*";
     public String claimTitleSpace = " ";
     public String claimEditedTitle = "Новое название";
