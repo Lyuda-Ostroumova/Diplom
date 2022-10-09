@@ -1,6 +1,10 @@
 package ru.iteco.fmhandroid.ui.test;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static ru.iteco.fmhandroid.ui.data.Helper.authInfo;
+import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
+import static ru.iteco.fmhandroid.ui.data.Helper.waitId;
 
 import android.os.SystemClock;
 
@@ -18,6 +22,7 @@ import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
+import ru.iteco.fmhandroid.ui.screenElements.MainScreenElements;
 import ru.iteco.fmhandroid.ui.steps.AuthSteps;
 import ru.iteco.fmhandroid.ui.steps.CommonSteps;
 import ru.iteco.fmhandroid.ui.steps.MainScreenSteps;
@@ -60,7 +65,6 @@ public class AuthTest {
     public void shouldLogInWithValidData() {
         authSteps.authWithValidData(authInfo());
         authSteps.clickSignInBtn();
-        SystemClock.sleep(3000);
         mainScreenSteps.isMainScreen();
     }
 
@@ -123,7 +127,6 @@ public class AuthTest {
     public void shouldLogInAndLogOut() {
         authSteps.authWithValidData(authInfo());
         authSteps.clickSignInBtn();
-        SystemClock.sleep(3000);
         mainScreenSteps.isMainScreen();
         mainScreenSteps.clickLogOutBtn();
         authSteps.isAuthScreen();

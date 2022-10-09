@@ -13,6 +13,8 @@ import static org.junit.Assert.assertEquals;
 
 import static ru.iteco.fmhandroid.ui.data.Helper.withIndex;
 
+import android.os.SystemClock;
+
 import androidx.test.espresso.ViewInteraction;
 
 import io.qameta.allure.kotlin.Allure;

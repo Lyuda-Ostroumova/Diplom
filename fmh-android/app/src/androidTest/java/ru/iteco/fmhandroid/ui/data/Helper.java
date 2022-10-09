@@ -38,6 +38,7 @@ import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.espresso.util.HumanReadables;
+import androidx.test.espresso.util.TreeIterables;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -51,6 +52,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
+import java.util.concurrent.TimeoutException;
 
 import ru.iteco.fmhandroid.R;
 
@@ -375,6 +377,195 @@ public class Helper {
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         return dateFormat.format(currentDate);
+    }
+
+    public static ViewAction waitId(final int viewId, final long millis) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isRoot();
+            }
+
+            @Override
+            public String getDescription() {
+                return "wait for a specific view with id <" + viewId + "> during " + millis + " millis.";
+            }
+
+            @Override
+            public void perform(final UiController uiController, final View view) {
+                uiController.loopMainThreadUntilIdle();
+                final long startTime = System.currentTimeMillis();
+                final long endTime = startTime + millis;
+                final Matcher<View> viewMatcher = withId(viewId);
+
+                do {
+                    for (View child : TreeIterables.breadthFirstViewTraversal(view)) {
+                        // found view with required ID
+                        if (viewMatcher.matches(child)) {
+                            return;
+                        }
+                    }
+
+                    uiController.loopMainThreadForAtLeast(50);
+                }
+                while (System.currentTimeMillis() < endTime);
+
+                // timeout happens
+                throw new PerformException.Builder()
+                        .withActionDescription(this.getDescription())
+                        .withViewDescription(HumanReadables.describe(view))
+                        .withCause(new TimeoutException())
+                        .build();
+            }
+        };
+    }
+
+    public static ViewAction waitText(final String elementText, final long millis) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isRoot();
+            }
+
+            @Override
+            public String getDescription() {
+                return "wait for a specific view with id <" + elementText + "> during " + millis + " millis.";
+            }
+
+            @Override
+            public void perform(final UiController uiController, final View view) {
+                uiController.loopMainThreadUntilIdle();
+                final long startTime = System.currentTimeMillis();
+                final long endTime = startTime + millis;
+                final Matcher<View> viewMatcher = withText(elementText);
+
+                do {
+                    for (View child : TreeIterables.breadthFirstViewTraversal(view)) {
+                        // found view with required ID
+                        if (viewMatcher.matches(child)) {
+                            return;
+                        }
+                    }
+
+                    uiController.loopMainThreadForAtLeast(50);
+                }
+                while (System.currentTimeMillis() < endTime);
+
+                // timeout happens
+                throw new PerformException.Builder()
+                        .withActionDescription(this.getDescription())
+                        .withViewDescription(HumanReadables.describe(view))
+                        .withCause(new TimeoutException())
+                        .build();
+            }
+        };
+    }
+
+    public static ViewAction waitFor(final long millis) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isRoot();
+            }
+
+            @Override
+            public String getDescription() {
+                return "Wait for " + millis + " milliseconds.";
+            }
+
+            @Override
+            public void perform(UiController uiController, final View view) {
+                uiController.loopMainThreadForAtLeast(millis);
+            }
+        };
+    }
+
+    public static boolean isDisplayedWithSwipe(ViewInteraction locator, int recycler, boolean finishSwipe) {
+        try {
+            locator.check(matches(isDisplayed()));
+            return true;
+        } catch (NoMatchingViewException ignored) {
+        }
+        boolean invis = true;
+        int n = 1;
+        while (invis) {
+            try {
+                if (recycler == 1) {
+                    onView(allOf(withId(R.id.news_list_recycler_view), isDisplayed())).perform(actionOnItemAtPosition(n, swipeUp()));
+                } else {
+                    onView(allOf(withId(R.id.claim_list_recycler_view), isDisplayed())).perform(actionOnItemAtPosition(n, swipeUp()));
+                }
+            } catch (PerformException e) {
+                return false;
+            }
+            try {
+                locator.check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));//.check(matches(isDisplayed()));
+                invis = false;
+            } catch (NoMatchingViewException e) {
+                invis = true;
+            }
+            n++;
+            if (!invis & finishSwipe) {
+                try {
+                    if (recycler == 1) {
+                        onView(allOf(withId(R.id.news_list_recycler_view), isDisplayed())).perform(actionOnItemAtPosition(n, swipeUp()));
+                    } else {
+                        onView(allOf(withId(R.id.claim_list_recycler_view), isDisplayed())).perform(actionOnItemAtPosition(n, swipeUp()));
+                    }
+                } catch (PerformException e) {
+                    return false;
+                }
+            }
+            if (n > 400) {
+                return false;
+            }
+            SystemClock.sleep(2000);
+        }
+        return true;
+    }
+
+    public static boolean fastDown(ViewInteraction locator, int recycler, boolean finishSwipe) {
+        try {
+            locator.check(matches(isDisplayed()));
+            return true;
+        } catch (NoMatchingViewException ignored) {
+        }
+        boolean invis = true;
+        int n = 1;
+        while (invis) {
+            try {
+                if (recycler == 1) {
+                    onView(allOf(withId(R.id.news_list_recycler_view), isDisplayed())).perform(actionOnItemAtPosition(n, swipeUp()));
+                } else {
+                    onView(allOf(withId(R.id.claim_list_recycler_view), isDisplayed())).perform(actionOnItemAtPosition(n, swipeUp()));
+                }
+            } catch (PerformException e) {
+                return false;
+            }
+            try {
+                locator.check(matches(isDisplayed()));
+                invis = false;
+            } catch (NoMatchingViewException e) {
+                invis = true;
+            }
+            n++;
+            if (!invis & finishSwipe) {
+                try {
+                    if (recycler == 1) {
+                        onView(allOf(withId(R.id.news_list_recycler_view), isDisplayed())).perform(actionOnItemAtPosition(n, swipeUp()));
+                    } else {
+                        onView(allOf(withId(R.id.claim_list_recycler_view), isDisplayed())).perform(actionOnItemAtPosition(n, swipeUp()));
+                    }
+                } catch (PerformException e) {
+                    return false;
+                }
+            }
+            if (n > 400) {
+                return false;
+            }
+            SystemClock.sleep(2000);
+        }
+        return true;
     }
 
 }

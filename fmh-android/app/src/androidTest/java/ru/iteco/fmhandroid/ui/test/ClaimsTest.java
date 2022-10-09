@@ -1,10 +1,13 @@
 package ru.iteco.fmhandroid.ui.test;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.swipeDown;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static org.junit.Assert.assertEquals;
 
-import static ru.iteco.fmhandroid.ui.data.Helper.Rand.random;
 import static ru.iteco.fmhandroid.ui.data.Helper.Rand.randomExecutor;
+import static ru.iteco.fmhandroid.ui.data.Helper.waitId;
 
 import android.content.pm.ActivityInfo;
 import android.os.SystemClock;
@@ -79,7 +82,7 @@ public class ClaimsTest {
     public void shouldCheckClaimElements() {
         int index = 0;
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitId(R.id.title_text_view, 2000));
         claimsSteps.checkClaimElements();
     }
 
@@ -89,7 +92,6 @@ public class ClaimsTest {
     public void shouldOpenElementAndReturn() {
         int index = 0;
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(5000);
         claimsSteps.checkClaimElements();
         claimsSteps.returnToPreviousScreen();
         claimsSteps.isClaimsScreen();
@@ -111,7 +113,7 @@ public class ClaimsTest {
         claimsSteps.clickOpen();
         claimsSteps.clickInProgress();
         commonSteps.clickOkBtn();
-        SystemClock.sleep(2000);
+        onView(isRoot()).perform(waitId(R.id.empty_claim_list_image_view, 2000));
         commonSteps.checkClaimButterflyImage();
         commonSteps.checkNothingToShowScreen();
     }
@@ -120,13 +122,13 @@ public class ClaimsTest {
     @DisplayName("Отфильтровать претензии со статусом Open")
     @Description("При фильтрации претензий по статусу Open отображаются только претензии со статусом Open")
     public void shouldShowOpenClaims() {
-        int index = random(0, 1, 2);
+        int index = 1;
         claimsSteps.openFilterWindow();
         claimsSteps.clickInProgress();
         commonSteps.clickOkBtn();
-        SystemClock.sleep(2000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitId(R.id.status_icon_image_view, 2000));
         claimsSteps.checkClaimStatus("Open");
     }
 
@@ -134,13 +136,13 @@ public class ClaimsTest {
     @DisplayName("Отфильтровать претензии со статусом In Progress")
     @Description("При фильтрации претензий по статусу In progress отображаются только претензии со статусом In progress")
     public void shouldShowInProgressClaims() {
-        int index = random(0, 1, 2);
+        int index = 2;
         claimsSteps.openFilterWindow();
         claimsSteps.clickOpen();
         commonSteps.clickOkBtn();
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitId(R.id.status_icon_image_view, 2000));
         claimsSteps.checkClaimStatus("In progress");
     }
 
@@ -148,15 +150,15 @@ public class ClaimsTest {
     @DisplayName("Отфильтровать претензии со статусом Executed")
     @Description("При фильтрации претензий по статусу Executed отображаются только претензии со статусом Executed")
     public void shouldShowExecutedClaims() {
-        int index = random(0, 1, 2);
+        int index = 1;
         claimsSteps.openFilterWindow();
         claimsSteps.clickOpen();
         claimsSteps.clickInProgress();
         claimsSteps.clickExecuted();
         commonSteps.clickOkBtn();
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitId(R.id.status_icon_image_view, 2000));
         claimsSteps.checkClaimStatus("Executed");
     }
 
@@ -164,15 +166,15 @@ public class ClaimsTest {
     @DisplayName("Отфильтровать претензии со статусом Cancelled")
     @Description("При фильтрации претензий по статусу Cancelled отображаются только претензии со статусом Cancelled")
     public void shouldShowCancelledClaims() {
-        int index = random(0, 1, 2);
+        int index = 2;
         claimsSteps.openFilterWindow();
         claimsSteps.clickOpen();
         claimsSteps.clickInProgress();
         claimsSteps.clickCancelled();
         commonSteps.clickOkBtn();
-        SystemClock.sleep(8000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitId(R.id.status_icon_image_view, 2000));
         claimsSteps.checkClaimStatus("Canceled");
     }
 
@@ -180,36 +182,55 @@ public class ClaimsTest {
     @DisplayName("Создать претензию с валидными значениями на кириллице")
     @Description("При заполенении текстовых полей данными на кириллице и вводе валидных значений в поля дата и время создается претензия на кириллице")
     public void shouldCreateNewClaimCyr() {
+        int index = 0;
         String executor = randomExecutor();
+        String title = resources.claimTitleCyr;
+        String description = resources.claimDescriptionCyr;
+        String date = "01.01.1980";
+        String time = "01:00";
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
-        createClaimSteps.fillInTitle(resources.claimTitleCyr);
+        createClaimSteps.fillInTitle(title);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate(resources.claimPublicationDate);
-        createClaimSteps.fillInTime(resources.claimPublicationTime);
-        createClaimSteps.fillItDescription(resources.claimDescriptionCyr);
+        createClaimSteps.fillInDate(date);
+        createClaimSteps.fillInTime(time);
+        createClaimSteps.fillItDescription(description);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
+        claimsScreen.claimsList.perform(swipeDown());
         claimsSteps.isClaimsScreen();
+        claimsSteps.openClaimIndex(index);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 5000));
+        claimsSteps.checkCreatedClaimElement(title, description, date, time);
+
     }
 
     @Test
     @DisplayName("Создать претензию с валидными значениями на латинице")
     @Description("При заполенении текстовых полей данными на латинице и вводе валидных значений в поля дата и время создается претензия на латинице")
     public void shouldCreateNewClaimLatin() {
+        int index = 0;
         String executor = randomExecutor();
+        String title = resources.claimTitleLatin;
+        String description = resources.claimDescriptionLatin;
+        String date = "01.01.1980";
+        String time = "01:00";
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
-        createClaimSteps.fillInTitle(resources.claimTitleLatin);
+        createClaimSteps.fillInTitle(title);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate(resources.claimPublicationDate);
-        createClaimSteps.fillInTime(resources.claimPublicationTime);
-        createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
+        createClaimSteps.fillInDate(date);
+        createClaimSteps.fillInTime(time);
+        createClaimSteps.fillItDescription(description);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.isClaimsScreen();
+        claimsScreen.claimsList.perform(swipeDown());
+        claimsSteps.openClaimIndex(index);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 5000));
+        claimsSteps.checkCreatedClaimElement(title, description, date, time);
     }
 
     @Test
@@ -218,7 +239,7 @@ public class ClaimsTest {
     public void shouldShowWrongHourWarning() {
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillInExecutor(executor);
@@ -235,7 +256,7 @@ public class ClaimsTest {
     public void shouldShowWrongMinuteWarning() {
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillInExecutor(executor);
@@ -252,19 +273,22 @@ public class ClaimsTest {
     public void shouldCreateClaimWithManualTimeInput() {
         int index = 0;
         String executor = randomExecutor();
+        String title = resources.claimTitleLatin;
+        String description = resources.claimDescriptionLatin;
+        String date = "01.01.1980";
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
-        createClaimSteps.fillInTitle(resources.claimTitleLatin);
+        createClaimSteps.fillInTitle(title);
         createClaimSteps.fillInExecutor(executor);
-        createClaimSteps.fillInDate("01.01.1980");
-        createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
+        createClaimSteps.fillInDate(date);
+        createClaimSteps.fillItDescription(description);
         createClaimSteps.clickTimeField();
         commonSteps.manualTimeInput("01", "00");
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
-        assertEquals("01:00", claimsSteps.getClaimTime());
+        claimsSteps.checkCreatedClaimElement(title, description, date, "01:00");
     }
 
     @Test
@@ -272,12 +296,11 @@ public class ClaimsTest {
     @Description("Если поля время и дата остаются пустыми, претензия не создается, предупреждение о необходимости заполнить пустые поля")
     public void shouldNotCreateClaimWithEmptyTimeAndDate() {
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
         commonSteps.checkEmptyMessage(R.string.empty_fields, true);
     }
 
@@ -286,10 +309,9 @@ public class ClaimsTest {
     @Description("Претензия с пустыми полями не заполняется, всплывает предупреждение о необходимости заполнить пустые поля")
     public void shouldNotCreateEmptyClaim() {
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
         commonSteps.checkEmptyMessage(R.string.empty_fields, true);
     }
 
@@ -299,14 +321,15 @@ public class ClaimsTest {
     public void shouldCheckTitleLength() {
         int index = 0;
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.fillInTitle(resources.claimTitle51);
         createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         claimsSteps.getClaimTitle();
         assertEquals("В этом названии теперь больше пятидесяти символов!", claimsSteps.getClaimTitle());
     }
@@ -317,7 +340,7 @@ public class ClaimsTest {
     public void shouldNotCreateClaimsWithSpaces() {
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleSpace);
         createClaimSteps.fillInExecutor(executor);
@@ -325,7 +348,6 @@ public class ClaimsTest {
         createClaimSteps.fillInTime(resources.claimPublicationTime);
         createClaimSteps.fillItDescription(resources.claimDescriptionSpace);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
         commonSteps.checkEmptyMessage(R.string.empty_fields, true);
     }
 
@@ -335,16 +357,14 @@ public class ClaimsTest {
     public void shouldNotCreateClaimsWithSymbols() {
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleSymbols);
         createClaimSteps.fillInExecutor(executor);
-        SystemClock.sleep(3000);
         createClaimSteps.fillInDate(resources.claimPublicationDate);
         createClaimSteps.fillInTime(resources.claimPublicationTime);
         createClaimSteps.fillItDescription(resources.claimDescriptionSymbols);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
         commonSteps.checkWrongData("Wrong format data", true);
     }
 
@@ -357,23 +377,23 @@ public class ClaimsTest {
         String description = resources.claimDescriptionLatin;
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(title);
         createClaimSteps.fillInExecutor(executor);
         createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         ActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitId(R.id.time_in_plan_text_input_edit_text, 2000));
         creatingClaimsScreen.claimTimeField.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         createClaimSteps.fillItDescription(description);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         ActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.isClaimsScreen();
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         assertEquals(title, claimsSteps.getClaimTitle());
         assertEquals(description, claimsSteps.getClaimDescription());
 
@@ -383,12 +403,10 @@ public class ClaimsTest {
     @DisplayName("Нажать отмену, вернуться к созданию и отменить создание претензии")
     @Description("При нажатии отмены без подтверждения продолжается слздание претензии, при подтверждении отмены создание претензии прекращается")
     public void shouldCancelClaimCreation() {
-        String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         commonSteps.clickCancel();
-        SystemClock.sleep(3000);
         commonSteps.checkEmptyMessage(R.string.cancellation, true);
         commonSteps.clickCancelInDialog();
         createClaimSteps.isCreatingClaimScreen();
@@ -402,11 +420,11 @@ public class ClaimsTest {
     @DisplayName("Изменить статус претензии с Open на In progress и обратно")
     @Description("При нажатии на кнопку Take to work статус претензии меняется на In progress, при нажатии на throw off претензия меняет статус на Open")
     public void shouldChangeClaimStatusToInProgressAndBack() {
-        int index = 0;
+        int index = 1;
         String comment = "Повар заболел";
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleCyr);
         createClaimSteps.fillInExecutor(executor);
@@ -418,21 +436,17 @@ public class ClaimsTest {
         claimsSteps.openFilterWindow();
         claimsSteps.clickInProgress();
         commonSteps.clickOkBtn();
-        SystemClock.sleep(2000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         claimsSteps.checkClaimStatus("Open");
-        SystemClock.sleep(3000);
         claimsSteps.clickEditStatusBtn();
         claimsSteps.clickTakeToWork();
-        SystemClock.sleep(3000);
         claimsSteps.checkClaimStatus("In progress");
-        SystemClock.sleep(2000);
         claimsSteps.clickEditStatusBtn();
         claimsSteps.clickThrowOff();
         claimsSteps.addCommentWhenStatusChange(comment);
         commonSteps.clickOkBtn();
-        SystemClock.sleep(3000);
         claimsSteps.checkClaimStatus("Open");
         claimsSteps.checkCommentToClaim(comment);
     }
@@ -445,33 +459,29 @@ public class ClaimsTest {
         String comment = "Приняли к сведению";
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
-        createClaimSteps.fillInTitle(resources.claimTitleCyr);
+        createClaimSteps.fillInTitle("Какая-то претензия");
         createClaimSteps.fillInExecutor(executor);
         createClaimSteps.fillInDate("01.01.1980");
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionCyr);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.isClaimsScreen();
         claimsSteps.openFilterWindow();
         claimsSteps.clickInProgress();
         commonSteps.clickOkBtn();
-        SystemClock.sleep(2000);
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         claimsSteps.checkClaimStatus("Open");
-        SystemClock.sleep(3000);
         claimsSteps.clickEditStatusBtn();
         claimsSteps.clickTakeToWork();
-        SystemClock.sleep(3000);
         claimsSteps.checkClaimStatus("In progress");
         claimsSteps.clickEditStatusBtn();
         claimsSteps.clickToExecute();
         claimsSteps.addCommentWhenStatusChange(comment);
         commonSteps.clickOkBtn();
-        SystemClock.sleep(3000);
         claimsSteps.checkClaimStatus("Executed");
         claimsSteps.checkCommentToClaim(comment);
     }
@@ -483,7 +493,7 @@ public class ClaimsTest {
         int index = 0;
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleCyr);
         createClaimSteps.fillInExecutor(executor);
@@ -491,19 +501,17 @@ public class ClaimsTest {
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionCyr);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.isClaimsScreen();
         claimsSteps.openFilterWindow();
         claimsSteps.clickInProgress();
         commonSteps.clickOkBtn();
-        SystemClock.sleep(2000);
+        SystemClock.sleep(1000);
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         claimsSteps.checkClaimStatus("Open");
-        SystemClock.sleep(3000);
         claimsSteps.clickEditStatusBtn();
         claimsSteps.clickCancelClaim();
-        SystemClock.sleep(3000);
         claimsSteps.checkClaimStatus("Canceled");
     }
 
@@ -515,7 +523,7 @@ public class ClaimsTest {
         String comment = resources.commentCyr;
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleCyr);
         createClaimSteps.fillInExecutor(executor);
@@ -523,13 +531,14 @@ public class ClaimsTest {
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionCyr);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         claimsSteps.clickAddComment();
         commentSteps.isCommentScreen();
         commentSteps.addComment(comment);
         commonSteps.clickSave();
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         claimsScreen.statusIcon.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         claimsSteps.checkCommentToClaim(comment);
     }
@@ -542,7 +551,7 @@ public class ClaimsTest {
         String comment = resources.commentLatin;
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillInExecutor(executor);
@@ -550,13 +559,13 @@ public class ClaimsTest {
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
         claimsSteps.clickAddComment();
         commentSteps.isCommentScreen();
         commentSteps.addComment(comment);
         commonSteps.clickSave();
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         claimsScreen.statusIcon.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         claimsSteps.checkCommentToClaim(comment);
     }
@@ -570,7 +579,7 @@ public class ClaimsTest {
         String comment = resources.commentSpace;
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillInExecutor(executor);
@@ -578,7 +587,7 @@ public class ClaimsTest {
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
         claimsSteps.clickAddComment();
         commentSteps.isCommentScreen();
@@ -595,7 +604,7 @@ public class ClaimsTest {
         int index = 0;
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillInExecutor(executor);
@@ -603,7 +612,7 @@ public class ClaimsTest {
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
         claimsSteps.clickAddComment();
         commentSteps.isCommentScreen();
@@ -619,7 +628,7 @@ public class ClaimsTest {
         String comment = resources.commentSymbols;
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillInExecutor(executor);
@@ -627,7 +636,7 @@ public class ClaimsTest {
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
         claimsSteps.clickAddComment();
         commentSteps.isCommentScreen();
@@ -645,7 +654,7 @@ public class ClaimsTest {
         String editedComment = resources.editedComment;
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleCyr);
         createClaimSteps.fillInExecutor(executor);
@@ -653,13 +662,13 @@ public class ClaimsTest {
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionCyr);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
         claimsSteps.clickAddComment();
         commentSteps.isCommentScreen();
         commentSteps.addComment(initialComment);
         commonSteps.clickSave();
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitId(R.id.edit_processing_image_button, 3000));
         claimsSteps.clickCommentEditBtn(index);
         commentSteps.addComment(editedComment);
         commonSteps.clickSave();
@@ -677,7 +686,7 @@ public class ClaimsTest {
         String editedComment = resources.editedComment;
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleCyr);
         createClaimSteps.fillInExecutor(executor);
@@ -685,19 +694,18 @@ public class ClaimsTest {
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionCyr);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
         claimsSteps.clickAddComment();
         commentSteps.isCommentScreen();
         commentSteps.addComment(initialComment);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.edit_processing_image_button, 3000));
         String initialCommentContent = claimsSteps.getClaimComment(position);
-        SystemClock.sleep(3000);
         claimsSteps.clickCommentEditBtn(commentIndex);
         commentSteps.addComment(editedComment);
         commonSteps.clickCancel();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.edit_processing_image_button, 3000));
         String commentAfterCancelledEditing = claimsSteps.getClaimComment(position);
         assertEquals(initialCommentContent, commentAfterCancelledEditing);
     }
@@ -709,7 +717,7 @@ public class ClaimsTest {
         int index = 0;
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillInExecutor(executor);
@@ -717,13 +725,13 @@ public class ClaimsTest {
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         claimsSteps.clickAddComment();
         commentSteps.isCommentScreen();
         commonSteps.clickCancel();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.edit_processing_image_button, 3000));
         claimsSteps.statusIconIsDisplayed();
     }
 
@@ -735,7 +743,7 @@ public class ClaimsTest {
         String comment = "поворот экрана";
         String executor = randomExecutor();
         claimsSteps.clickNewClaimBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.title_edit_text, 2000));
         createClaimSteps.isCreatingClaimScreen();
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillInExecutor(executor);
@@ -743,19 +751,19 @@ public class ClaimsTest {
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         claimsSteps.clickAddComment();
         commentSteps.isCommentScreen();
         commentSteps.addComment(comment);
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitId(R.id.comment_text_input_layout, 2000));
         ActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.comment_text_input_layout, 2000));
         ActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitId(R.id.comment_text_input_layout, 2000));
         commonSteps.clickSave();
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         assertEquals("поворот экрана", claimsSteps.getClaimComment(0));
 
     }
@@ -768,9 +776,9 @@ public class ClaimsTest {
         claimsSteps.openFilterWindow();
         claimsSteps.clickOpen();
         commonSteps.clickOkBtn();
-        SystemClock.sleep(3000);
+        SystemClock.sleep(2000);
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         claimsSteps.clickEditClaim();
         commonSteps.checkEmptyToast(R.string.inability_to_edit_claim, true);
         claimsSteps.returnToPreviousScreen();
@@ -778,9 +786,8 @@ public class ClaimsTest {
         claimsSteps.clickInProgress();
         claimsSteps.clickExecuted();
         commonSteps.clickOkBtn();
-        SystemClock.sleep(3000);
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.status_icon_image_view, 2000));
         claimsSteps.clickEditClaim();
         commonSteps.checkEmptyToast(R.string.inability_to_edit_claim, true);
         claimsSteps.returnToPreviousScreen();
@@ -788,9 +795,8 @@ public class ClaimsTest {
         claimsSteps.clickExecuted();
         claimsSteps.clickCancelled();
         commonSteps.clickOkBtn();
-        SystemClock.sleep(3000);
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.status_icon_image_view, 2000));
         claimsSteps.clickEditClaim();
         commonSteps.checkEmptyToast(R.string.inability_to_edit_claim, true);
         claimsSteps.returnToPreviousScreen();
@@ -798,9 +804,8 @@ public class ClaimsTest {
         claimsSteps.clickCancelled();
         claimsSteps.clickOpen();
         commonSteps.clickOkBtn();
-        SystemClock.sleep(3000);
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.status_icon_image_view, 2000));
         claimsSteps.clickEditClaim();
         editClaimsSteps.isEditClaimScreen();
     }
@@ -815,14 +820,13 @@ public class ClaimsTest {
         claimsSteps.openFilterWindow();
         claimsSteps.clickInProgress();
         commonSteps.clickOkBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         claimsSteps.clickEditClaim();
         editClaimsSteps.changeClaimTitle(editedTitle);
         editClaimsSteps.changeDescription(editedDescription);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
         assertEquals(editedTitle, claimsSteps.getClaimTitle());
         assertEquals(editedDescription, claimsSteps.getClaimDescription());
     }
@@ -835,17 +839,15 @@ public class ClaimsTest {
         claimsSteps.openFilterWindow();
         claimsSteps.clickInProgress();
         commonSteps.clickOkBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
         claimsSteps.openClaimIndex(index);
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         claimsSteps.clickEditClaim();
         commonSteps.clickCancel();
-        SystemClock.sleep(3000);
         commonSteps.checkEmptyMessage(R.string.cancellation, true);
         commonSteps.clickCancelInDialog();
         editClaimsSteps.isEditClaimScreen();
         commonSteps.clickCancel();
-        SystemClock.sleep(3000);
         commonSteps.checkEmptyMessage(R.string.cancellation, true);
         commonSteps.clickOkBtn();
         claimsSteps.statusIconIsDisplayed();

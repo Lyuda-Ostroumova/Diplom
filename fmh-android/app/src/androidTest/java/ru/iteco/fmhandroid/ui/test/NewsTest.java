@@ -1,8 +1,15 @@
 package ru.iteco.fmhandroid.ui.test;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.swipeDown;
+import static androidx.test.espresso.action.ViewActions.swipeUp;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static org.junit.Assert.assertEquals;
 import static ru.iteco.fmhandroid.ui.data.Helper.Rand.random;
 import static ru.iteco.fmhandroid.ui.data.Helper.Rand.randomCategory;
+import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
+import static ru.iteco.fmhandroid.ui.data.Helper.waitId;
+import static ru.iteco.fmhandroid.ui.data.Helper.waitText;
 
 import android.os.SystemClock;
 
@@ -21,6 +28,8 @@ import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Helper;
 import ru.iteco.fmhandroid.ui.data.Resources;
+import ru.iteco.fmhandroid.ui.screenElements.ControlPanelScreen;
+import ru.iteco.fmhandroid.ui.screenElements.NewsScreen;
 import ru.iteco.fmhandroid.ui.steps.AuthSteps;
 import ru.iteco.fmhandroid.ui.steps.CommonSteps;
 import ru.iteco.fmhandroid.ui.steps.ControlPanelSteps;
@@ -37,11 +46,13 @@ public class NewsTest {
     NewsSteps newsSteps = new NewsSteps();
     MainScreenSteps mainScreenSteps = new MainScreenSteps();
     ControlPanelSteps controlPanelSteps = new ControlPanelSteps();
+    ControlPanelScreen controlPanelScreen = new ControlPanelScreen();
     FilterNewsSteps filterScreen = new FilterNewsSteps();
     Resources resources = new Resources();
     CreateNewsSteps createNewsSteps = new CreateNewsSteps();
     CommonSteps commonSteps = new CommonSteps();
     EditNewsSteps editNewsSteps = new EditNewsSteps();
+    NewsScreen newsScreen = new NewsScreen();
 
 
     @Rule
@@ -75,9 +86,10 @@ public class NewsTest {
         int position = 0;
         String firstNewsTitle = newsSteps.getFirstNewsTitle(position);
         newsSteps.clickSortBtn();
-        SystemClock.sleep(3000);
+        newsScreen.allNewsList.perform(swipeDown());
         newsSteps.clickSortBtn();
-        SystemClock.sleep(3000);
+        newsScreen.allNewsList.perform(swipeDown());
+        SystemClock.sleep(2000);
         String firstNewsTitleAfterSecondSorting = newsSteps.getFirstNewsTitleAfterSecondSorting(position);
         assertEquals(firstNewsTitle, firstNewsTitleAfterSecondSorting);
     }
@@ -87,7 +99,7 @@ public class NewsTest {
     @DisplayName("Развернуть любую новость")
     @Description("При нажатии на новость разворачивается ее содержание")
     public void shouldShowNewsContent() {
-        int position = random(0, 1, 2, 3);
+        int position = 0;
         newsSteps.openNews(position);
         newsSteps.newsContentIsDisplayed(position);
     }
@@ -167,12 +179,12 @@ public class NewsTest {
         controlPanelSteps.openNewsFilterScreen();
         filterScreen.clickOnNotActiveCheckBox();
         filterScreen.clickFilter();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 5000));
         controlPanelSteps.checkActiveNewsStatus();
         controlPanelSteps.openNewsFilterScreen();
         filterScreen.clickOnActiveCheckBox();
         filterScreen.clickFilter();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 5000));
         controlPanelSteps.checkNotActiveNewsStatus();
     }
 
@@ -197,7 +209,6 @@ public class NewsTest {
         newsSteps.clickEditBtn();
         controlPanelSteps.openNewsFilterScreen();
         commonSteps.clickCancel();
-        SystemClock.sleep(3000);
         controlPanelSteps.isControlPanelScreen();
     }
 
@@ -213,12 +224,11 @@ public class NewsTest {
         createNewsSteps.isCreatingNewsScreen();
         createNewsSteps.createNews(randomCategory(), titleText, resources.newsPublicationDate, resources.newsPublicationTime, descriptionText);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 3000));
         controlPanelSteps.checkCreatedNews(position, titleText, descriptionText);
         mainScreenSteps.goToNewsScreen();
-        SystemClock.sleep(3000);
+        newsScreen.allNewsList.perform(swipeDown());
         newsSteps.openNews(position);
-        SystemClock.sleep(3000);
         String createdDescription = newsSteps.getCreatedNewsDescription(position);
         assertEquals(descriptionText, createdDescription);
     }
@@ -235,13 +245,46 @@ public class NewsTest {
         createNewsSteps.isCreatingNewsScreen();
         createNewsSteps.createNews(randomCategory(), titleText, resources.newsPublicationDate, resources.newsPublicationTime, descriptionText);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 3000));
         controlPanelSteps.checkCreatedNews(position, titleText, descriptionText);
         mainScreenSteps.goToNewsScreen();
+        newsScreen.allNewsList.perform(swipeDown());
         newsSteps.openNews(position);
-        SystemClock.sleep(3000);
         String createdDescription = newsSteps.getCreatedNewsDescription(position);
         assertEquals(descriptionText, createdDescription);
+    }
+
+    @Test
+    @DisplayName("Удаление новости")
+    @Description("При нажатии и подтверждении удаления новость удаляется")
+    public void shouldDeleteNews() {
+        String title = "Удаленная новость";
+        newsSteps.clickEditBtn();
+        controlPanelSteps.clickCreateNewsBtn();
+        createNewsSteps.createNews(randomCategory(), title, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
+        commonSteps.clickSave();
+        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 3000));
+        controlPanelSteps.deleteNews(title);
+        controlPanelSteps.confirmDeleting();
+        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 3000));
+        controlPanelSteps.isControlPanelScreen();
+    }
+
+    @Test
+    @DisplayName("Отмена удаления новости")
+    @Description("Если отмена не подтверждена, новость не удаляется")
+    public void shouldCancelDeleting() {
+        String title = "Неудаляемая новость";
+        newsSteps.clickEditBtn();
+        controlPanelSteps.clickCreateNewsBtn();
+        createNewsSteps.createNews(randomCategory(), title, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
+        commonSteps.clickSave();
+        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 2000));
+        controlPanelSteps.deleteNews(title);
+        controlPanelSteps.cancelDeleting();
+        controlPanelSteps.isControlPanelScreen();
+        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 2000));
+        controlPanelSteps.checkNewsExists(title);
     }
 
     @Test
@@ -255,7 +298,6 @@ public class NewsTest {
         createNewsSteps.isCreatingNewsScreen();
         createNewsSteps.createNews(randomCategory(), titleText, resources.newsPublicationDate, resources.newsPublicationTime, descriptionText);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
         commonSteps.checkWrongData("Wrong format data", true);
     }
 
@@ -359,19 +401,18 @@ public class NewsTest {
     @Description("При нажатии на редактирование можно изменить статус новости с Active на Not Active и обратно. Новость отображается с новым статусом")
     public void shouldEditNews() {
         int position = 0;
+        String newsTitle = resources.newsTitleCyr;
         newsSteps.clickEditBtn();
         controlPanelSteps.clickCreateNewsBtn();
-        createNewsSteps.createNews(randomCategory(), resources.newsTitleCyr, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
+        createNewsSteps.createNews(randomCategory(), newsTitle, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
-        SystemClock.sleep(2000);
         controlPanelSteps.clickEditNews(position);
-        editNewsSteps.isEditNewsScreen();
         editNewsSteps.editStatus(); // to "not active"
-        SystemClock.sleep(2000);
+        commonSteps.clickSave();
         controlPanelSteps.checkNotActiveNewsStatus();
         controlPanelSteps.clickEditNews(position);
         editNewsSteps.editStatus(); // to "active"
-        SystemClock.sleep(2000);
+        commonSteps.clickSave();
         controlPanelSteps.checkActiveNewsStatus();
     }
 
@@ -386,7 +427,7 @@ public class NewsTest {
         controlPanelSteps.clickCreateNewsBtn();
         createNewsSteps.createNews(randomCategory(), resources.newsTitleCyr, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
-        SystemClock.sleep(2000);
+        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 3000));
         controlPanelSteps.clickEditNews(position);
         editNewsSteps.isEditNewsScreen();
         editNewsSteps.editTitle(newTitle);
@@ -408,7 +449,7 @@ public class NewsTest {
         controlPanelSteps.clickCreateNewsBtn();
         createNewsSteps.createNews(randomCategory(), resources.newsTitleCyr, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
-        SystemClock.sleep(2000);
+        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 3000));
         controlPanelSteps.clickEditNews(position);
         editNewsSteps.isEditNewsScreen();
         editNewsSteps.editTitle(newTitle);
@@ -416,6 +457,8 @@ public class NewsTest {
         commonSteps.clickCancel();
         commonSteps.clickOkBtn();
         controlPanelSteps.isControlPanelScreen();
+        controlPanelScreen.blockOfNews.perform(swipeDown());
+        controlPanelSteps.clickOnRandomlySelectedNewsItem(position);
         assertEquals(resources.newsTitleCyr, controlPanelSteps.getEditedNewsTitle(position));
     }
 
@@ -430,7 +473,7 @@ public class NewsTest {
         controlPanelSteps.clickCreateNewsBtn();
         createNewsSteps.createNews(randomCategory(), resources.newsTitleCyr, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
-        SystemClock.sleep(2000);
+        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 3000));
         controlPanelSteps.clickEditNews(position);
         editNewsSteps.isEditNewsScreen();
         editNewsSteps.editTitle(newTitle);
@@ -438,40 +481,6 @@ public class NewsTest {
         commonSteps.clickCancel();
         commonSteps.clickCancelInDialog();
         editNewsSteps.isEditNewsScreen();
-    }
-
-    @Test
-    @DisplayName("Удаление новости")
-    @Description("При нажатии и подтверждении удаления новость удаляется")
-    public void shouldDeleteNews() {
-        String title = "Удаленная новость";
-        newsSteps.clickEditBtn();
-        controlPanelSteps.clickCreateNewsBtn();
-        createNewsSteps.createNews(randomCategory(), title, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
-        commonSteps.clickSave();
-        SystemClock.sleep(2000);
-        controlPanelSteps.deleteNews("Удаленная новость");
-        controlPanelSteps.confirmDeleting();
-        SystemClock.sleep(2000);
-        controlPanelSteps.isControlPanelScreen();
-    }
-
-    @Test
-    @DisplayName("Отмена удаления новости")
-    @Description("Если отмена не подтверждена, новость не удаляется")
-    public void shouldCancelDeleting() {
-        String title = "Неудаляемая новость";
-        int position = 0;
-        newsSteps.clickEditBtn();
-        controlPanelSteps.clickCreateNewsBtn();
-        createNewsSteps.createNews(randomCategory(), title, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
-        commonSteps.clickSave();
-        SystemClock.sleep(2000);
-        controlPanelSteps.deleteNews(title);
-        controlPanelSteps.cancelDeleting();
-        controlPanelSteps.isControlPanelScreen();
-        SystemClock.sleep(2000);
-        controlPanelSteps.checkCreatedNews(position, title, resources.newsDescriptionCyr);
     }
 
 }

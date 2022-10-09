@@ -1,11 +1,14 @@
 package ru.iteco.fmhandroid.ui.test;
 
+import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 
 import static org.junit.Assert.assertEquals;
 import static ru.iteco.fmhandroid.ui.data.Helper.Rand.random;
 import static ru.iteco.fmhandroid.ui.data.Helper.Rand.randomExecutor;
 import static ru.iteco.fmhandroid.ui.data.Helper.authInfo;
+import static ru.iteco.fmhandroid.ui.data.Helper.waitId;
 
 import android.os.SystemClock;
 
@@ -20,6 +23,7 @@ import org.junit.runner.RunWith;
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.junit4.DisplayName;
+import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Resources;
 import ru.iteco.fmhandroid.ui.screenElements.MainScreenElements;
@@ -166,29 +170,33 @@ public class MainScreenTest {
         String executor = randomExecutor();
         String title = "Новость на основном экране";
         String description = resources.claimDescriptionCyr;
+        String date = "01.01.1980";
+        String time = "01:00";
         mainScreenSteps.clickNewClaimBtn();
         createClaim.isCreatingClaimScreen();
         createClaim.fillInTitle(title);
         createClaim.fillInExecutor(executor);
-        createClaim.fillInDate("01.01.1980");
-        createClaim.fillInTime("01:00");
+        createClaim.fillInDate(date);
+        createClaim.fillInTime(time);
         createClaim.fillItDescription(description);
         commonSteps.clickSave();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 2000));
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
-        SystemClock.sleep(3000);
         mainScreenSteps.clickClaimOnMainScreen(position);
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         assertEquals(title, claimsSteps.getClaimTitle());
         assertEquals(description, claimsSteps.getClaimDescription());
+        assertEquals(date, claimsSteps.getClaimDate());
+        assertEquals(time, claimsSteps.getClaimTime());
     }
 
     @Test
     @DisplayName("Развернуть отдельную новость")
-    @Description("При нажатии на отдельную новотсь разворачивается ее содержание")
+    @Description("При нажатии на отдельную новость разворачивается ее содержание")
     public void shouldExpandAndHideSingleNews() {
-        int position = random(0, 1, 2);
+        int position = 1;
         mainScreenSteps.expandSingleNews(position);
         mainScreenSteps.descriptionIsDisplayed(position);
     }

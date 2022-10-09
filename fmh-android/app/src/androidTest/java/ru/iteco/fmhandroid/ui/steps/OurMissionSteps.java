@@ -5,12 +5,15 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.not;
 
 import io.qameta.allure.kotlin.Allure;
 
+import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.screenElements.OurMissionScreen;
 
 public class OurMissionSteps {
@@ -30,12 +33,12 @@ public class OurMissionSteps {
 
     public void descriptionNotDisplayed(String text) {
         Allure.step("Проверка отображения содержания цитаты");
-        onView(withText(text)).check(matches(not(isDisplayed())));
+        onView(allOf(withId(R.id.our_mission_item_description_text_view), withText(text))).check(matches(not(isDisplayed())));
     }
 
     public void descriptionIsDisplayed(String text) {
         Allure.step("Проверка скрытия содержания цитаты");
-        onView(withText(text)).check(matches(isDisplayed()));
+        onView(allOf(withId(R.id.our_mission_item_description_text_view), withText(text))).check(matches(isDisplayed()));
     }
 
 

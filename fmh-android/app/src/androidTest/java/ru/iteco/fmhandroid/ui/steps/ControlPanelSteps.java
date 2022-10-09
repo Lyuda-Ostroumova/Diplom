@@ -12,6 +12,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
+import static ru.iteco.fmhandroid.ui.data.Helper.isDisplayedWithSwipe;
 import static ru.iteco.fmhandroid.ui.data.Helper.withIndex;
 
 import android.os.SystemClock;
@@ -128,11 +129,12 @@ public class ControlPanelSteps {
         controlPanelScreen.newsDescription.check(matches(withText(descriptionText)));
     }
 
-
-
-
-
-
-
-
+    public void checkNewsExists(String title) {
+        Allure.step("Проверка наличия новости с указанным названием");
+        controlPanelScreen.blockOfNews.check(matches(isDisplayed()));
+        if (isDisplayedWithSwipe(onView(withText(title)), 1, true)) {
+            onView(withText(title)).check(matches(isDisplayed()));
+        }
+    }
 }
+

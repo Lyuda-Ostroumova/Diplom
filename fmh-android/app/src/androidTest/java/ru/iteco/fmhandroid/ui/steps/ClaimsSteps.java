@@ -6,8 +6,10 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.junit.Assert.assertEquals;
+import static ru.iteco.fmhandroid.ui.data.Helper.isDisplayedWithSwipe;
 import static ru.iteco.fmhandroid.ui.data.Helper.nestedScrollTo;
 
 import android.os.SystemClock;
@@ -75,7 +77,6 @@ public class ClaimsSteps {
 
     public void clickAddComment() {
         Allure.step("Кликнуть кнопку добавления комментраия");
-        SystemClock.sleep(200);
         claimsScreen.addCommentBtn.perform(nestedScrollTo());
         claimsScreen.addCommentBtn.perform(click());
     }
@@ -113,7 +114,6 @@ public class ClaimsSteps {
 
     public void returnToPreviousScreen() {
         Allure.step("Вернуться на предыдущий экран");
-        SystemClock.sleep(200);
         claimsScreen.returnBtn.perform(nestedScrollTo());
         claimsScreen.returnBtn.perform(click());
     }
@@ -159,6 +159,7 @@ public class ClaimsSteps {
 
     public void checkClaimStatus(String status) {
         Allure.step("Проверка статус претензии");
+        SystemClock.sleep(1000);
         String claimStatus = Helper.Text.getText(onView(withId(R.id.status_label_text_view)));
         assertEquals(status, claimStatus);
     }
@@ -183,9 +184,29 @@ public class ClaimsSteps {
         return Helper.Text.getText(onView(withId(R.id.plan_time_text_view)));
     }
 
+    public String getClaimDate() {
+        Allure.step("Получить дату создания претензии");
+        return Helper.Text.getText(onView(withId(R.id.plane_date_text_view)));
+    }
+
     public void addCommentWhenStatusChange(String comment) {
         Allure.step("Добавить комментарий при изменении статуса претензии");
         claimsScreen.statusChangingComment.perform(replaceText(comment));
+    }
+
+    public void checkCreatedClaimElement(String title, String description, String date, String time) {
+        assertEquals(title, getClaimTitle());
+        assertEquals(description, getClaimDescription());
+        assertEquals(date, getClaimDate());
+        assertEquals(time, getClaimTime());
+    }
+
+    public void checkClaim(String text) {
+        Allure.step("Открытие нужной претензии");
+        claimsScreen.claimsList.check(matches(isDisplayed()));
+        if (isDisplayedWithSwipe(onView(withText(text)), 0, true)) {
+            onView(withText(text)).perform(click());
+        }
     }
 
 

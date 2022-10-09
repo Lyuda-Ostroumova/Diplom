@@ -13,7 +13,6 @@ import ru.iteco.fmhandroid.ui.screenElements.EditNewsScreen;
 
 public class EditNewsSteps {
     EditNewsScreen editNewsScreen = new EditNewsScreen();
-    CommonSteps commonSteps = new CommonSteps();
 
     public void isEditNewsScreen() {
         Allure.step("Проверка элементов экрана News");
@@ -31,7 +30,6 @@ public class EditNewsSteps {
     public void editStatus() {
         Allure.step("Изменить статус новости (актианый/неактивный)");
         editNewsScreen.statusSwitcher.perform(click());
-        commonSteps.clickSave();
     }
 
     public void editTitle(String text) {

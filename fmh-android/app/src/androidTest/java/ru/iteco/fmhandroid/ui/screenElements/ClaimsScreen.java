@@ -39,15 +39,11 @@ public class ClaimsScreen {
     public ViewInteraction createdLabel = onView(withId(R.id.create_data_label_text_view));
     public ViewInteraction dateCreated = onView(withId(R.id.create_data_text_view));
     public ViewInteraction timeCreated = onView(withId(R.id.create_time_text_view));
-    public ViewInteraction statusIcon = onView(withId(R.id.create_time_text_view));
+    public ViewInteraction statusIcon = onView(withId(R.id.status_icon_image_view));
     public ViewInteraction statusChangingComment = onView(withId(R.id.editText));
 
 
-    public ViewInteraction claimStatus(String status) {
-        return onView(allOf(withId(R.id.status_label_text_view), withText(status)));
-    }
-
-       public ViewInteraction claimList(int index) {
+    public ViewInteraction claimList(int index) {
         return onView(withIndex(withId(R.id.claim_list_card), index));
     }
 

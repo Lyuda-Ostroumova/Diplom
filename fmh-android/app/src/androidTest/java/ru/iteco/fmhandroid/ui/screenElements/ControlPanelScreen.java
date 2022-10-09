@@ -30,10 +30,6 @@ public class ControlPanelScreen {
     public ViewInteraction deleteNewsBtn(String newsTitle) {
         return onView(allOf(withId(R.id.delete_news_item_image_view), withParent(withParent(allOf(withId(R.id.news_item_material_card_view), withChild(withChild(withText(newsTitle))))))));
     }
-    public ViewInteraction firstPublicationDate = onView(withIndex(withId(R.id.news_item_publication_date_text_view), 0));
-    public ViewInteraction lastPublicationDate = onView(withIndex(withId(R.id.news_item_publication_date_text_view), 0));
-    public ViewInteraction firstPublicationDateNotActive = onView(withIndex(withId(R.id.news_item_publication_date_text_view), 0));
-    public ViewInteraction firstPublicationDateActive = onView(withIndex(withId(R.id.news_item_publication_date_text_view), 0));
     public ViewInteraction newsStatusActive = onView(withIndex(withId(R.id.news_item_published_text_view), 0));
     public ViewInteraction newsStatusNotActive = onView(withIndex(withId(R.id.news_item_published_text_view), 0));
 

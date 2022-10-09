@@ -45,7 +45,7 @@ public class MainScreenElements {
                                     0),
                             4)));
 
-    // заявки
+    // претензии
     public ViewInteraction claims = onView(withText("Claims"));
     public ViewInteraction claimsUnit = onView(withId(R.id.claim_list_recycler_view));
     public ViewInteraction allClaimsBtn = onView(withId(R.id.all_claims_text_view));
