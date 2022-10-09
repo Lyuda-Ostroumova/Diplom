@@ -69,22 +69,12 @@ public class OurMissionTest {
     @DisplayName("Свернуть/развернуть цитату")
     @Description("При нажати на цитату разворачивается ее содержимое")
     public void shouldShowOrHideQuoteDescription() {
-        //№0
-        String firstQuoteText = "\"Ну, идеальное устройство мира в моих глазах. Где никто не оценивает, никто не осудит, где говоришь, и тебя слышат, где, если страшно, тебя обнимут и возьмут за руку, а если холодно тебя согреют.” Юля Капис, волонтер";
-        ourMissionSteps.showOrHideQuote(0);
-        ourMissionSteps.descriptionIsDisplayed(firstQuoteText);
-        ourMissionSteps.showOrHideQuote(0);
-        //№1
-        String secondQuoteText = "Нет шаблона и стандарта, есть только дух, который живет в разных домах по-разному. Но всегда он добрый, любящий и помогающий.";
-        ourMissionSteps.showOrHideQuote(1);
-        ourMissionSteps.descriptionIsDisplayed(secondQuoteText);
-        ourMissionSteps.showOrHideQuote(1);
+
         //#2
         String thirdQuoteText = "Все сотрудники хосписа - это адвокаты пациента, его прав и потребностей. Поиск путей решения различных задач - это и есть хосписный индивидуальный подход к паллиативной помощи.";
         ourMissionSteps.showOrHideQuote(2);
         ourMissionSteps.descriptionIsDisplayed(thirdQuoteText);
         ourMissionSteps.showOrHideQuote(2);
-
     }
 
 }

@@ -183,7 +183,6 @@ public class MainScreenTest {
         onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 2000));
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
-        mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         mainScreenSteps.clickClaimOnMainScreen(position);
         onView(isRoot()).perform(waitId(R.id.description_text_view, 2000));
         assertEquals(title, claimsSteps.getClaimTitle());
