@@ -185,7 +185,7 @@ public class MainScreenTest {
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         mainScreenSteps.clickClaimOnMainScreen(position);
-        onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
+        onView(isRoot()).perform(waitId(R.id.description_text_view, 2000));
         assertEquals(title, claimsSteps.getClaimTitle());
         assertEquals(description, claimsSteps.getClaimDescription());
         assertEquals(date, claimsSteps.getClaimDate());
@@ -196,7 +196,7 @@ public class MainScreenTest {
     @DisplayName("Развернуть отдельную новость")
     @Description("При нажатии на отдельную новость разворачивается ее содержание")
     public void shouldExpandAndHideSingleNews() {
-        int position = 1;
+        int position = 0;
         mainScreenSteps.expandSingleNews(position);
         mainScreenSteps.descriptionIsDisplayed(position);
     }
@@ -207,7 +207,7 @@ public class MainScreenTest {
     public void shouldExpandSingleClaim() {
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         mainScreenSteps.clickClaimOnMainScreen(0);
-        claimsSteps.statusIconIsDisplayed();
+        claimsSteps.checkClaimElements();
         claimsSteps.returnToPreviousScreen();
         mainScreenSteps.isMainScreen();
 

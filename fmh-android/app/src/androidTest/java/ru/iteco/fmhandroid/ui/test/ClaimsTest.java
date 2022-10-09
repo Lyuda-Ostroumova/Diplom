@@ -197,7 +197,7 @@ public class ClaimsTest {
         createClaimSteps.fillInTime(time);
         createClaimSteps.fillItDescription(description);
         commonSteps.clickSave();
-        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
+        SystemClock.sleep(1000);
         claimsScreen.claimsList.perform(swipeDown());
         claimsSteps.isClaimsScreen();
         claimsSteps.openClaimIndex(index);
@@ -225,7 +225,7 @@ public class ClaimsTest {
         createClaimSteps.fillInTime(time);
         createClaimSteps.fillItDescription(description);
         commonSteps.clickSave();
-        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
+        SystemClock.sleep(1000);
         claimsSteps.isClaimsScreen();
         claimsScreen.claimsList.perform(swipeDown());
         claimsSteps.openClaimIndex(index);
@@ -531,7 +531,7 @@ public class ClaimsTest {
         createClaimSteps.fillInTime("01:00");
         createClaimSteps.fillItDescription(resources.claimDescriptionCyr);
         commonSteps.clickSave();
-        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
+        SystemClock.sleep(1000);
         claimsSteps.openClaimIndex(index);
         onView(isRoot()).perform(waitId(R.id.description_text_view, 3000));
         claimsSteps.clickAddComment();
