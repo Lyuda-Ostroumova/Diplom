@@ -5,12 +5,14 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.junit.Assert.assertEquals;
 import static ru.iteco.fmhandroid.ui.data.Helper.isDisplayedWithSwipe;
 import static ru.iteco.fmhandroid.ui.data.Helper.nestedScrollTo;
+import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
 
 import android.os.SystemClock;
 
@@ -159,7 +161,7 @@ public class ClaimsSteps {
 
     public void checkClaimStatus(String status) {
         Allure.step("Проверка статус претензии");
-        SystemClock.sleep(1000);
+        onView(isRoot()).perform(waitFor(1000));
         String claimStatus = Helper.Text.getText(onView(withId(R.id.status_label_text_view)));
         assertEquals(status, claimStatus);
     }

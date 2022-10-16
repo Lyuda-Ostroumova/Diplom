@@ -1,5 +1,9 @@
 package ru.iteco.fmhandroid.ui.test;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
+import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
+
 import android.os.SystemClock;
 
 import androidx.test.espresso.NoMatchingViewException;
@@ -33,13 +37,13 @@ public class AboutUsTest {
 
     @Before
     public void logoutCheck() {
-        SystemClock.sleep(8000);
+        onView(isRoot()).perform(waitFor(8000));
         try {
             newsSteps.isNewsScreen();
         } catch (NoMatchingViewException e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();
-            SystemClock.sleep(5000);
+            onView(isRoot()).perform(waitFor(3000));
         } finally {
             mainScreenSteps.goToAboutScreen();
         }

@@ -4,32 +4,21 @@ package ru.iteco.fmhandroid.ui.steps;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItem;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
-import static androidx.test.espresso.contrib.RecyclerViewActions.scrollTo;
-import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 
-import static ru.iteco.fmhandroid.ui.data.Helper.nestedScrollTo;
+
 import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
 import static ru.iteco.fmhandroid.ui.data.Helper.waitId;
-import static ru.iteco.fmhandroid.ui.data.Helper.waitText;
 import static ru.iteco.fmhandroid.ui.data.Helper.withIndex;
 
-import android.os.SystemClock;
-
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.ViewInteraction;
-import androidx.test.espresso.action.ViewActions;
-import androidx.test.espresso.assertion.ViewAssertions;
-import androidx.test.espresso.contrib.RecyclerViewActions;
 
 import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
@@ -41,7 +30,7 @@ public class MainScreenSteps {
 
     public void isMainScreen() {
         Allure.step("Проверка элементов экрана Main");
-        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 3000));
+        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 5000));
         mainScreenElements.tradeMark.check(matches(isDisplayed()));
         mainScreenElements.news.check(matches(isDisplayed()));
         mainScreenElements.newsUnit.check(matches(isDisplayed()));
@@ -121,14 +110,13 @@ public class MainScreenSteps {
     public void clickClaimOnMainScreen(int position) {
         Allure.step("Кликнуть претензию на оснвоном экране");
         mainScreenElements.claimList.perform(actionOnItemAtPosition(position, click()));
-        onView(isRoot()).perform(waitFor(3000));
     }
 
     public void clickLogOutBtn() {
         Allure.step("Кликнуь кнопку выхода");
         mainScreenElements.logOutBtn.check(matches(isDisplayed()));
         mainScreenElements.logOutBtn.perform(click());
-        onView(isRoot()).perform(waitFor(3000));
+        onView(isRoot()).perform(waitFor(2000));
         mainScreenElements.logOut.check(matches(isDisplayed()));
         mainScreenElements.logOut.perform(click());
     }

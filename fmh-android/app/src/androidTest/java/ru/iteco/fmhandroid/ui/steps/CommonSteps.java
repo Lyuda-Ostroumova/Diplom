@@ -1,11 +1,15 @@
 package ru.iteco.fmhandroid.ui.steps;
 
+import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 
 import static org.hamcrest.core.IsNot.not;
+
+import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
 
 import android.os.SystemClock;
 
@@ -99,7 +103,7 @@ public class CommonSteps {
         timeScreen.inputHour.perform(replaceText(hour));
         timeScreen.inputMinute.perform(replaceText(minute));
         clickOkBtn();
-        SystemClock.sleep(2000);
+        onView(isRoot()).perform(waitFor(2000));
     }
 
     public void checkWrongTimeError() {

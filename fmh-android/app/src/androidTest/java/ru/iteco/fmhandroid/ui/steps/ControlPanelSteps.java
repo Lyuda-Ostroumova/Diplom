@@ -6,6 +6,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -13,6 +14,7 @@ import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
 import static ru.iteco.fmhandroid.ui.data.Helper.isDisplayedWithSwipe;
+import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
 import static ru.iteco.fmhandroid.ui.data.Helper.withIndex;
 
 import android.os.SystemClock;
@@ -72,13 +74,13 @@ public class ControlPanelSteps {
     public void clickEditNews(int position) {
         Allure.step("Клинкть кнопку редактирования новости");
         onView(withIndex(withId(R.id.edit_news_item_image_view), position)).perform(click());
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitFor(3000));
     }
 
     public void clickOnRandomlySelectedNewsItem(int position) {
         Allure.step("Кликнуть произвольную новость");
         controlPanelScreen.blockOfNews.perform(actionOnItemAtPosition(position, click()));
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitFor(3000));
     }
 
     public String getFirstNewsPublicationDate(int position) {
@@ -95,7 +97,7 @@ public class ControlPanelSteps {
         Allure.step("Проверка сортировки новостей в Control panel");
         String firstNewsPublication = getFirstNewsPublicationDate(0);
         clickSortNewsBtn();
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitFor(3000));
         clickSortNewsBtn();
         String firstNewsPublicationAfterSecondSorting = getFirstNewsPublicationDateAfterSecondSorting(0);
         assertEquals(firstNewsPublication, firstNewsPublicationAfterSecondSorting);
@@ -124,7 +126,7 @@ public class ControlPanelSteps {
     public void checkCreatedNews(int position, String titleText, String descriptionText) {
         Allure.step("Проверка заголовка и содержания созданной новости");
         controlPanelScreen.blockOfNews.perform(actionOnItemAtPosition(position, click()));
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitFor(3000));
         controlPanelScreen.newsItemTitle.check(matches(withText(titleText)));
         controlPanelScreen.newsDescription.check(matches(withText(descriptionText)));
     }

@@ -5,12 +5,9 @@ import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 
 import static org.junit.Assert.assertEquals;
-import static ru.iteco.fmhandroid.ui.data.Helper.Rand.random;
 import static ru.iteco.fmhandroid.ui.data.Helper.Rand.randomExecutor;
 import static ru.iteco.fmhandroid.ui.data.Helper.authInfo;
-import static ru.iteco.fmhandroid.ui.data.Helper.waitId;
-
-import android.os.SystemClock;
+import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
 
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.rule.ActivityTestRule;
@@ -23,7 +20,6 @@ import org.junit.runner.RunWith;
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.junit4.DisplayName;
-import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Resources;
 import ru.iteco.fmhandroid.ui.screenElements.MainScreenElements;
@@ -55,7 +51,7 @@ public class MainScreenTest {
 
     @Before
     public void logoutCheck() {
-        SystemClock.sleep(10000);
+        onView(isRoot()).perform(waitFor(8000));
         try {
             authSteps.isAuthScreen();
         } catch (NoMatchingViewException e) {
@@ -63,7 +59,7 @@ public class MainScreenTest {
         }
         authSteps.authWithValidData(authInfo());
         authSteps.clickSignInBtn();
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitFor(5000));
     }
 
     @Test
@@ -180,11 +176,11 @@ public class MainScreenTest {
         createClaim.fillInTime(time);
         createClaim.fillItDescription(description);
         commonSteps.clickSave();
-        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 2000));
+        onView(isRoot()).perform(waitFor(2000));
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         mainScreenSteps.clickClaimOnMainScreen(position);
-        onView(isRoot()).perform(waitId(R.id.description_text_view, 2000));
+        onView(isRoot()).perform(waitFor(2000));
         assertEquals(title, claimsSteps.getClaimTitle());
         assertEquals(description, claimsSteps.getClaimDescription());
         assertEquals(date, claimsSteps.getClaimDate());
@@ -205,7 +201,9 @@ public class MainScreenTest {
     @Description("При нажатии на претензию открывается окно с претензией и ее содержанием")
     public void shouldExpandSingleClaim() {
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
+        onView(isRoot()).perform(waitFor(1000));
         mainScreenSteps.clickClaimOnMainScreen(0);
+        onView(isRoot()).perform(waitFor(1000));
         claimsSteps.checkClaimElements();
         claimsSteps.returnToPreviousScreen();
         mainScreenSteps.isMainScreen();

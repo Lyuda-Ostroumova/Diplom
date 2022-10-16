@@ -1,9 +1,13 @@
 package ru.iteco.fmhandroid.ui.steps;
 
+import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
+
+import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
 
 import android.os.SystemClock;
 
@@ -16,7 +20,7 @@ public class EditNewsSteps {
 
     public void isEditNewsScreen() {
         Allure.step("Проверка элементов экрана News");
-        SystemClock.sleep(3000);
+        onView(isRoot()).perform(waitFor(3000));
         editNewsScreen.editingNewsScreenName.check(matches(isDisplayed()));
         editNewsScreen.editCategoryField.check(matches(isDisplayed()));
         editNewsScreen.editTitleField.check(matches(isDisplayed()));

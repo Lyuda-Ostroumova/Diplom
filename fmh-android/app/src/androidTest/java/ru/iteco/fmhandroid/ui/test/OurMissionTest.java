@@ -2,11 +2,8 @@ package ru.iteco.fmhandroid.ui.test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-import static ru.iteco.fmhandroid.ui.data.Helper.waitId;
-
-import android.os.SystemClock;
+import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
 
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.rule.ActivityTestRule;
@@ -20,7 +17,6 @@ import org.junit.runner.RunWith;
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.junit4.DisplayName;
-import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Helper;
 import ru.iteco.fmhandroid.ui.steps.AuthSteps;
@@ -41,21 +37,16 @@ public class OurMissionTest {
 
     @Before
     public void logoutCheck() {
-        SystemClock.sleep(8000);
+        onView(isRoot()).perform(waitFor(8000));
         try {
             newsSteps.isNewsScreen();
         } catch (NoMatchingViewException e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();
-            SystemClock.sleep(5000);
+            onView(isRoot()).perform(waitFor(3000));
         } finally {
             mainScreenSteps.clickOurMissionBtn();
         }
-    }
-
-    @After
-    public void setUp() {
-        SystemClock.sleep(3000);
     }
 
     @Test

@@ -4,14 +4,10 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static ru.iteco.fmhandroid.ui.data.Helper.authInfo;
 import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
-import static ru.iteco.fmhandroid.ui.data.Helper.waitId;
-
-import android.os.SystemClock;
 
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.rule.ActivityTestRule;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,7 +18,6 @@ import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
-import ru.iteco.fmhandroid.ui.screenElements.MainScreenElements;
 import ru.iteco.fmhandroid.ui.steps.AuthSteps;
 import ru.iteco.fmhandroid.ui.steps.CommonSteps;
 import ru.iteco.fmhandroid.ui.steps.MainScreenSteps;
@@ -39,17 +34,12 @@ public class AuthTest {
 
     @Before
     public void logoutCheck() {
-        SystemClock.sleep(8000);
+        onView(isRoot()).perform(waitFor(8000));
         try {
             authSteps.isAuthScreen();
         } catch (NoMatchingViewException e) {
             mainScreenSteps.clickLogOutBtn();
         }
-    }
-
-    @After
-    public void setUp() {
-        SystemClock.sleep(3000);
     }
 
     @Test
@@ -65,6 +55,7 @@ public class AuthTest {
     public void shouldLogInWithValidData() {
         authSteps.authWithValidData(authInfo());
         authSteps.clickSignInBtn();
+        onView(isRoot()).perform(waitFor(5000));
         mainScreenSteps.isMainScreen();
     }
 
@@ -127,6 +118,7 @@ public class AuthTest {
     public void shouldLogInAndLogOut() {
         authSteps.authWithValidData(authInfo());
         authSteps.clickSignInBtn();
+        onView(isRoot()).perform(waitFor(5000));
         mainScreenSteps.isMainScreen();
         mainScreenSteps.clickLogOutBtn();
         authSteps.isAuthScreen();
