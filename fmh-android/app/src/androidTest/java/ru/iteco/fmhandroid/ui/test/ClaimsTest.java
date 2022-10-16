@@ -392,7 +392,7 @@ public class ClaimsTest {
         commonSteps.clickSave();
         onView(isRoot()).perform(waitFor(3000));
         ActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        onView(isRoot()).perform(waitId(R.id.claim_list_recycler_view, 2000));
+        onView(isRoot()).perform(waitFor(4000));
         claimsSteps.isClaimsScreen();
         claimsSteps.openClaimIndex(index);
         onView(isRoot()).perform(waitFor(3000));
