@@ -2,8 +2,10 @@ package ru.iteco.fmhandroid.ui.test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
+import static ru.iteco.fmhandroid.ui.data.Helper.waitForElement;
 
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.rule.ActivityTestRule;
@@ -17,6 +19,7 @@ import org.junit.runner.RunWith;
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.junit4.DisplayName;
+import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Helper;
 import ru.iteco.fmhandroid.ui.steps.AuthSteps;
@@ -30,21 +33,20 @@ public class OurMissionTest {
     AuthSteps authSteps = new AuthSteps();
     OurMissionSteps ourMissionSteps = new OurMissionSteps();
     MainScreenSteps mainScreenSteps = new MainScreenSteps();
-    NewsSteps newsSteps = new NewsSteps();
 
     @Rule
     public androidx.test.rule.ActivityTestRule<AppActivity> ActivityTestRule = new ActivityTestRule<>(AppActivity.class);
 
     @Before
     public void logoutCheck() {
-        onView(isRoot()).perform(waitFor(8000));
+        onView(isRoot()).perform(waitForElement(withId(R.id.splashscreen_image_view), 3000));
         try {
-            newsSteps.isNewsScreen();
-        } catch (NoMatchingViewException e) {
+            onView(isRoot()).perform(waitForElement(withId(R.id.claim_list_recycler_view), 3000));
+        } catch (Exception e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();
-            onView(isRoot()).perform(waitFor(3000));
         } finally {
+            onView(isRoot()).perform(waitForElement(withId(R.id.claim_list_recycler_view), 2000));
             mainScreenSteps.clickOurMissionBtn();
         }
     }

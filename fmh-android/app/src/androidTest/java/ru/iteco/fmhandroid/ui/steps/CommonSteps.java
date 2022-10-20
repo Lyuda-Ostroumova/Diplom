@@ -103,7 +103,6 @@ public class CommonSteps {
         timeScreen.inputHour.perform(replaceText(hour));
         timeScreen.inputMinute.perform(replaceText(minute));
         clickOkBtn();
-        onView(isRoot()).perform(waitFor(2000));
     }
 
     public void checkWrongTimeError() {

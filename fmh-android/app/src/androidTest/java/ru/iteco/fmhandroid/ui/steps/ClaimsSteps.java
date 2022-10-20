@@ -161,7 +161,6 @@ public class ClaimsSteps {
 
     public void checkClaimStatus(String status) {
         Allure.step("Проверка статус претензии");
-        onView(isRoot()).perform(waitFor(1000));
         String claimStatus = Helper.Text.getText(onView(withId(R.id.status_label_text_view)));
         assertEquals(status, claimStatus);
     }

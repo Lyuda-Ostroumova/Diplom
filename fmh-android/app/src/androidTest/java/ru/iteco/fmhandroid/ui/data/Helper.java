@@ -414,7 +414,7 @@ public class Helper {
         };
     }
 
-    public static ViewAction waitText(final String elementText, final long millis) {
+    public static ViewAction waitForElement(final Matcher matcher, final long millis) {
         return new ViewAction() {
             @Override
             public Matcher<View> getConstraints() {
@@ -423,7 +423,7 @@ public class Helper {
 
             @Override
             public String getDescription() {
-                return "wait for a specific view with id <" + elementText + "> during " + millis + " millis.";
+                return "wait for a specific view with attribute <" + matcher + "> during " + millis + " millis.";
             }
 
             @Override
@@ -431,17 +431,21 @@ public class Helper {
                 uiController.loopMainThreadUntilIdle();
                 final long startTime = System.currentTimeMillis();
                 final long endTime = startTime + millis;
-                final Matcher<View> viewMatcher = withText(elementText);
+                final Matcher<View> viewMatcher = matcher;
 
                 do {
                     for (View child : TreeIterables.breadthFirstViewTraversal(view)) {
-                        // found view with required ID
-                        if (viewMatcher.matches(child)) {
-                            return;
+                        try { // found view with required ID
+                            if (viewMatcher.matches(child)) {
+                                return;
+                            }
+                        } catch (NoMatchingViewException e) {
+                            // ignore
                         }
+
+                        uiController.loopMainThreadForAtLeast(50);
                     }
 
-                    uiController.loopMainThreadForAtLeast(50);
                 }
                 while (System.currentTimeMillis() < endTime);
 
@@ -453,7 +457,9 @@ public class Helper {
                         .build();
             }
         };
+
     }
+
 
     public static ViewAction waitFor(final long millis) {
         return new ViewAction() {
@@ -474,7 +480,8 @@ public class Helper {
         };
     }
 
-    public static boolean isDisplayedWithSwipe(ViewInteraction locator, int recycler, boolean finishSwipe) {
+    public static boolean isDisplayedWithSwipe(ViewInteraction locator, int recycler,
+                                               boolean finishSwipe) {
         try {
             locator.check(matches(isDisplayed()));
             return true;

@@ -13,9 +13,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.not;
 
-
-import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
-import static ru.iteco.fmhandroid.ui.data.Helper.waitId;
+import static ru.iteco.fmhandroid.ui.data.Helper.waitForElement;
 import static ru.iteco.fmhandroid.ui.data.Helper.withIndex;
 
 import androidx.test.espresso.ViewInteraction;
@@ -30,7 +28,6 @@ public class MainScreenSteps {
 
     public void isMainScreen() {
         Allure.step("Проверка элементов экрана Main");
-        onView(isRoot()).perform(waitId(R.id.news_list_recycler_view, 5000));
         mainScreenElements.tradeMark.check(matches(isDisplayed()));
         mainScreenElements.news.check(matches(isDisplayed()));
         mainScreenElements.newsUnit.check(matches(isDisplayed()));
@@ -98,7 +95,7 @@ public class MainScreenSteps {
         Allure.step("Кликнуть кнопку создать претензию");
         mainScreenElements.newClaimBtn.check(matches(isDisplayed()));
         mainScreenElements.newClaimBtn.perform(click());
-        onView(isRoot()).perform(waitFor(3000));
+        onView(isRoot()).perform(waitForElement(withText("Creating"), 3000));
     }
 
     public void clickOurMissionBtn() {
@@ -116,7 +113,7 @@ public class MainScreenSteps {
         Allure.step("Кликнуь кнопку выхода");
         mainScreenElements.logOutBtn.check(matches(isDisplayed()));
         mainScreenElements.logOutBtn.perform(click());
-        onView(isRoot()).perform(waitFor(2000));
+        onView(isRoot()).perform(waitForElement(withText("Log out"), 1000));
         mainScreenElements.logOut.check(matches(isDisplayed()));
         mainScreenElements.logOut.perform(click());
     }

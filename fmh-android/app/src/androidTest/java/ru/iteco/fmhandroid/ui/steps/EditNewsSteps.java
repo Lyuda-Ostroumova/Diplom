@@ -20,7 +20,6 @@ public class EditNewsSteps {
 
     public void isEditNewsScreen() {
         Allure.step("Проверка элементов экрана News");
-        onView(isRoot()).perform(waitFor(3000));
         editNewsScreen.editingNewsScreenName.check(matches(isDisplayed()));
         editNewsScreen.editCategoryField.check(matches(isDisplayed()));
         editNewsScreen.editTitleField.check(matches(isDisplayed()));
