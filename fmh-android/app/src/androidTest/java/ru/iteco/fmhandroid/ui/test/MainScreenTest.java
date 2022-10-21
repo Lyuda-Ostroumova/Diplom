@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static ru.iteco.fmhandroid.ui.data.Helper.Rand.randomExecutor;
 import static ru.iteco.fmhandroid.ui.data.Helper.waitForElement;
 
+import androidx.test.espresso.PerformException;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Before;
@@ -55,12 +56,12 @@ public class MainScreenTest {
     public void logoutCheck() {
         onView(isRoot()).perform(waitForElement(withId(R.id.splashscreen_image_view), 3000));
         try {
-            onView(isRoot()).perform(waitForElement(withText("Claims"), 2000));
-        } catch (Exception e) {
+            onView(isRoot()).perform(waitForElement(withText("all claims"), 3000));
+        } catch (PerformException e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();
         } finally {
-            onView(isRoot()).perform(waitForElement(withId(R.id.claim_list_recycler_view), 3000));
+            onView(isRoot()).perform(waitForElement(withText("all claims"),  2000));
         }
     }
 

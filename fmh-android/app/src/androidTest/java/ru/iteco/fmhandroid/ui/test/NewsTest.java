@@ -59,12 +59,12 @@ public class NewsTest {
     public void logoutCheck() {
         onView(isRoot()).perform(waitForElement(withId(R.id.splashscreen_image_view), 3000));
         try {
-            onView(isRoot()).perform(waitForElement(withText("Claims"), 2000));
+            onView(isRoot()).perform(waitForElement(withText("all claims"), 3000));
         } catch (NoMatchingViewException e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();
         } finally {
-            onView(isRoot()).perform(waitForElement(withId(R.id.claim_list_recycler_view), 3000));
+            onView(isRoot()).perform(waitForElement(withText("all claims"),  2000));
             mainScreenSteps.clickAllNews();
         }
     }

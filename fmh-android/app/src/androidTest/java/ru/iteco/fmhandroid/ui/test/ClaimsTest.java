@@ -5,6 +5,7 @@ import static androidx.test.espresso.action.ViewActions.swipeDown;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
 
 import static ru.iteco.fmhandroid.ui.data.Helper.Rand.randomExecutor;
@@ -59,11 +60,12 @@ public class ClaimsTest {
     public void logoutCheck() {
         onView(isRoot()).perform(waitForElement(withId(R.id.splashscreen_image_view), 3000));
         try {
-            onView(isRoot()).perform(waitForElement(withId(R.id.claim_list_recycler_view), 2000));
+            onView(isRoot()).perform(waitForElement(withText("all claims"), 3000));
         } catch (NoMatchingViewException e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();
         } finally {
+            onView(isRoot()).perform(waitForElement(withText("all claims"), 2000));
             mainScreenSteps.clickAllClaims();
         }
     }

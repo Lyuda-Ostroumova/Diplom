@@ -44,12 +44,12 @@ public class AboutUsTest {
     public void logoutCheck() {
         onView(isRoot()).perform(waitForElement(withId(R.id.splashscreen_image_view), 3000));
         try {
-            onView(isRoot()).perform(waitForElement(withId(R.id.claim_list_recycler_view), 2000));
+            onView(isRoot()).perform(waitForElement(withText("all claims"), 3000));
         } catch (Exception e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();
         } finally {
-            onView(isRoot()).perform(waitForElement(withId(R.id.claim_list_recycler_view), 2000));
+            onView(isRoot()).perform(waitForElement(withText("all claims"),  2000));
             mainScreenSteps.goToAboutScreen();
         }
     }

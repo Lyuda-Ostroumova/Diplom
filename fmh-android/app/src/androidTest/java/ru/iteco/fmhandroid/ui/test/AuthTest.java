@@ -60,7 +60,7 @@ public class AuthTest {
     public void shouldLogInWithValidData() {
         authSteps.authWithValidData(authInfo());
         authSteps.clickSignInBtn();
-        onView(isRoot()).perform(waitForElement(withId(R.id.claim_list_recycler_view), 3000));
+        onView(isRoot()).perform(waitForElement(withText("all claims"), 3000));
         mainScreenSteps.isMainScreen();
     }
 
@@ -123,7 +123,7 @@ public class AuthTest {
     public void shouldLogInAndLogOut() {
         authSteps.authWithValidData(authInfo());
         authSteps.clickSignInBtn();
-        onView(isRoot()).perform(waitForElement(withId(R.id.claim_list_recycler_view), 2000));
+        onView(isRoot()).perform(waitForElement(withText("all claims"), 3000));
         mainScreenSteps.isMainScreen();
         mainScreenSteps.clickLogOutBtn();
         authSteps.isAuthScreen();

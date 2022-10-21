@@ -3,6 +3,7 @@ package ru.iteco.fmhandroid.ui.test;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
 import static ru.iteco.fmhandroid.ui.data.Helper.waitForElement;
@@ -41,12 +42,12 @@ public class OurMissionTest {
     public void logoutCheck() {
         onView(isRoot()).perform(waitForElement(withId(R.id.splashscreen_image_view), 3000));
         try {
-            onView(isRoot()).perform(waitForElement(withId(R.id.claim_list_recycler_view), 3000));
+            onView(isRoot()).perform(waitForElement(withText("all claims"), 3000));
         } catch (Exception e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();
         } finally {
-            onView(isRoot()).perform(waitForElement(withId(R.id.claim_list_recycler_view), 2000));
+            onView(isRoot()).perform(waitForElement(withText("all claims"),  2000));
             mainScreenSteps.clickOurMissionBtn();
         }
     }
