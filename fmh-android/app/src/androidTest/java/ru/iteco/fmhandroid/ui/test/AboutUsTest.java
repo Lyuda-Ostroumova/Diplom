@@ -36,7 +36,7 @@ public class AboutUsTest {
     public void logoutCheck() {
         elementWaiting(withId(R.id.splashscreen_image_view), 3000);
         try {
-            elementWaiting(withText("all claims"), 3000);
+            elementWaiting(withText("all claims"), 8000);
         } catch (Exception e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();

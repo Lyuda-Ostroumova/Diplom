@@ -35,7 +35,7 @@ public class AuthTest {
     public void logoutCheck() {
         elementWaiting(withId(R.id.splashscreen_image_view), 3000);
         try {
-            elementWaiting(withId(R.id.enter_button), 3000);
+            elementWaiting(withId(R.id.enter_button), 8000);
             authSteps.isAuthScreen();
         } catch (Exception e) {
             mainScreenSteps.clickLogOutBtn();
