@@ -1,14 +1,12 @@
 package ru.iteco.fmhandroid.ui.test;
 
-import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
-import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.junit.Assert.assertEquals;
 import static ru.iteco.fmhandroid.ui.data.Helper.Rand.randomExecutor;
-import static ru.iteco.fmhandroid.ui.data.Helper.waitForElement;
+import static ru.iteco.fmhandroid.ui.data.Helper.elementWaiting;
 
 import androidx.test.espresso.PerformException;
 import androidx.test.rule.ActivityTestRule;
@@ -54,14 +52,14 @@ public class MainScreenTest {
 
     @Before
     public void logoutCheck() {
-        onView(isRoot()).perform(waitForElement(withId(R.id.splashscreen_image_view), 3000));
+        elementWaiting(withId(R.id.splashscreen_image_view), 3000);
         try {
-            onView(isRoot()).perform(waitForElement(withText("all claims"), 3000));
+            elementWaiting(withText("all claims"), 3000);
         } catch (PerformException e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();
         } finally {
-            onView(isRoot()).perform(waitForElement(withText("all claims"),  2000));
+            elementWaiting(withText("all claims"),  8000);
         }
     }
 
@@ -179,10 +177,10 @@ public class MainScreenTest {
         createClaim.fillInTime(time);
         createClaim.fillItDescription(description);
         commonSteps.clickSave();
-        onView(isRoot()).perform(waitForElement(withText("Claims"), 2000));
-        mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
+        elementWaiting(withText("Claims"), 10000);
+        mainScreenElements.titleClaims.perform(swipeUp());
         mainScreenSteps.clickClaimOnMainScreen(position);
-        onView(isRoot()).perform(waitForElement(withId(R.id.status_processing_image_button), 2000));
+        elementWaiting(withId(R.id.status_processing_image_button), 10000);
         assertEquals(title, claimsSteps.getClaimTitle());
         assertEquals(description, claimsSteps.getClaimDescription());
         assertEquals(date, claimsSteps.getClaimDate());
@@ -202,9 +200,9 @@ public class MainScreenTest {
     @DisplayName("Развернуть/свернуть отдельную пртенезию")
     @Description("При нажатии на претензию открывается окно с претензией и ее содержанием")
     public void shouldExpandSingleClaim() {
-        int position = 0;
-        mainScreenSteps.clickClaimOnMainScreen(position);
-        onView(isRoot()).perform(waitForElement(withId(R.id.status_processing_image_button), 2000));
+        mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
+        mainScreenSteps.clickClaimOnMainScreen(0);
+        elementWaiting(withId(R.id.status_processing_image_button), 10000);
         claimsSteps.checkClaimElements();
         claimsSteps.returnToPreviousScreen();
         mainScreenSteps.isMainScreen();

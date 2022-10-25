@@ -460,6 +460,9 @@ public class Helper {
 
     }
 
+    public static void elementWaiting(Matcher matcher, int millis) {
+        onView(isRoot()).perform(waitForElement(matcher, millis));
+    }
 
     public static ViewAction waitFor(final long millis) {
         return new ViewAction() {

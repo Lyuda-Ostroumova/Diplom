@@ -1,14 +1,10 @@
 package ru.iteco.fmhandroid.ui.test;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static ru.iteco.fmhandroid.ui.data.Helper.authInfo;
-import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
-import static ru.iteco.fmhandroid.ui.data.Helper.waitForElement;
+import static ru.iteco.fmhandroid.ui.data.Helper.elementWaiting;
 
-import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Before;
@@ -37,13 +33,13 @@ public class AuthTest {
 
     @Before
     public void logoutCheck() {
-        onView(isRoot()).perform(waitForElement(withId(R.id.splashscreen_image_view), 3000));
+        elementWaiting(withId(R.id.splashscreen_image_view), 3000);
         try {
-            onView(isRoot()).perform(waitForElement(withId(R.id.enter_button),3000));
+            elementWaiting(withId(R.id.enter_button), 3000);
             authSteps.isAuthScreen();
         } catch (Exception e) {
             mainScreenSteps.clickLogOutBtn();
-            onView(isRoot()).perform(waitForElement(withId(R.id.enter_button),3000));
+            elementWaiting(withId(R.id.enter_button), 8000);
         }
     }
 
@@ -60,7 +56,7 @@ public class AuthTest {
     public void shouldLogInWithValidData() {
         authSteps.authWithValidData(authInfo());
         authSteps.clickSignInBtn();
-        onView(isRoot()).perform(waitForElement(withText("all claims"), 3000));
+        elementWaiting(withText("all claims"), 10000);
         mainScreenSteps.isMainScreen();
     }
 
@@ -123,7 +119,7 @@ public class AuthTest {
     public void shouldLogInAndLogOut() {
         authSteps.authWithValidData(authInfo());
         authSteps.clickSignInBtn();
-        onView(isRoot()).perform(waitForElement(withText("all claims"), 3000));
+        elementWaiting(withText("all claims"), 10000);
         mainScreenSteps.isMainScreen();
         mainScreenSteps.clickLogOutBtn();
         authSteps.isAuthScreen();

@@ -1,14 +1,11 @@
 package ru.iteco.fmhandroid.ui.test;
 
-import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.swipeDown;
-import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
 import static ru.iteco.fmhandroid.ui.data.Helper.Rand.randomCategory;
-import static ru.iteco.fmhandroid.ui.data.Helper.waitForElement;
-
+import static ru.iteco.fmhandroid.ui.data.Helper.elementWaiting;
 
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.rule.ActivityTestRule;
@@ -57,14 +54,14 @@ public class NewsTest {
 
     @Before
     public void logoutCheck() {
-        onView(isRoot()).perform(waitForElement(withId(R.id.splashscreen_image_view), 3000));
+        elementWaiting(withId(R.id.splashscreen_image_view), 3000);
         try {
-            onView(isRoot()).perform(waitForElement(withText("all claims"), 3000));
+            elementWaiting(withText("all claims"), 5000);
         } catch (NoMatchingViewException e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();
         } finally {
-            onView(isRoot()).perform(waitForElement(withText("all claims"),  2000));
+            elementWaiting(withText("all claims"),  10000);
             mainScreenSteps.clickAllNews();
         }
     }
@@ -86,7 +83,7 @@ public class NewsTest {
         newsScreen.allNewsList.perform(swipeDown());
         newsSteps.clickSortBtn();
         newsScreen.allNewsList.perform(swipeDown());
-        onView(isRoot()).perform(waitForElement(withId(R.id.all_news_cards_block_constraint_layout), 2000));
+        elementWaiting(withId(R.id.all_news_cards_block_constraint_layout), 10000);
         String firstNewsTitleAfterSecondSorting = newsSteps.getFirstNewsTitleAfterSecondSorting(position);
         assertEquals(firstNewsTitle, firstNewsTitleAfterSecondSorting);
     }
@@ -176,12 +173,12 @@ public class NewsTest {
         controlPanelSteps.openNewsFilterScreen();
         filterScreen.clickOnNotActiveCheckBox();
         filterScreen.clickFilter();
-        onView(isRoot()).perform(waitForElement(withId(R.id.news_list_recycler_view), 2000));
+        elementWaiting(withId(R.id.news_list_recycler_view), 10000);
         controlPanelSteps.checkActiveNewsStatus();
         controlPanelSteps.openNewsFilterScreen();
         filterScreen.clickOnActiveCheckBox();
         filterScreen.clickFilter();
-        onView(isRoot()).perform(waitForElement(withId(R.id.news_list_recycler_view), 2000));
+        elementWaiting(withId(R.id.news_list_recycler_view), 10000);
         controlPanelSteps.checkNotActiveNewsStatus();
     }
 
@@ -221,7 +218,7 @@ public class NewsTest {
         createNewsSteps.isCreatingNewsScreen();
         createNewsSteps.createNews(randomCategory(), titleText, resources.newsPublicationDate, resources.newsPublicationTime, descriptionText);
         commonSteps.clickSave();
-        onView(isRoot()).perform(waitForElement(withId(R.id.news_list_recycler_view), 2000));
+        elementWaiting(withId(R.id.news_list_recycler_view), 10000);
         controlPanelSteps.checkCreatedNews(position, titleText, descriptionText);
         mainScreenSteps.goToNewsScreen();
         newsScreen.allNewsList.perform(swipeDown());
@@ -242,7 +239,7 @@ public class NewsTest {
         createNewsSteps.isCreatingNewsScreen();
         createNewsSteps.createNews(randomCategory(), titleText, resources.newsPublicationDate, resources.newsPublicationTime, descriptionText);
         commonSteps.clickSave();
-        onView(isRoot()).perform(waitForElement(withId(R.id.news_list_recycler_view), 2000));
+        elementWaiting(withId(R.id.news_list_recycler_view), 10000);
         controlPanelSteps.checkCreatedNews(position, titleText, descriptionText);
         mainScreenSteps.goToNewsScreen();
         newsScreen.allNewsList.perform(swipeDown());
@@ -260,10 +257,10 @@ public class NewsTest {
         controlPanelSteps.clickCreateNewsBtn();
         createNewsSteps.createNews(randomCategory(), title, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
-        onView(isRoot()).perform(waitForElement(withId(R.id.news_list_recycler_view), 2000));
+        elementWaiting(withId(R.id.news_list_recycler_view), 10000);
         controlPanelSteps.deleteNews(title);
         controlPanelSteps.confirmDeleting();
-        onView(isRoot()).perform(waitForElement(withId(R.id.news_list_recycler_view), 2000));
+        elementWaiting(withId(R.id.news_list_recycler_view), 10000);
         controlPanelSteps.isControlPanelScreen();
     }
 
@@ -276,11 +273,11 @@ public class NewsTest {
         controlPanelSteps.clickCreateNewsBtn();
         createNewsSteps.createNews(randomCategory(), title, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
-        onView(isRoot()).perform(waitForElement(withId(R.id.news_list_recycler_view), 2000));
+        elementWaiting(withId(R.id.news_list_recycler_view), 10000);
         controlPanelSteps.deleteNews(title);
         controlPanelSteps.cancelDeleting();
         controlPanelSteps.isControlPanelScreen();
-        onView(isRoot()).perform(waitForElement(withId(R.id.news_list_recycler_view), 2000));
+        elementWaiting(withId(R.id.news_list_recycler_view), 10000);
         controlPanelSteps.checkNewsExists(title);
     }
 
@@ -348,7 +345,7 @@ public class NewsTest {
         createNewsSteps.fillInPublicationDate(resources.newsPublicationDate);
         createNewsSteps.clickTimeField();
         commonSteps.manualTimeInput("25", "25");
-        onView(isRoot()).perform(waitForElement(withText("Enter a valid time"), 2000));
+        elementWaiting(withText("Enter a valid time"), 10000);
         commonSteps.checkWrongTimeError();
     }
 
@@ -363,7 +360,7 @@ public class NewsTest {
         createNewsSteps.fillInPublicationDate(resources.newsPublicationDate);
         createNewsSteps.clickTimeField();
         commonSteps.manualTimeInput("15", "75");
-        onView(isRoot()).perform(waitForElement(withText("Enter a valid time"), 2000));
+        elementWaiting(withText("Enter a valid time"), 10000);
         commonSteps.checkWrongTimeError();
     }
 
@@ -405,11 +402,11 @@ public class NewsTest {
         controlPanelSteps.clickCreateNewsBtn();
         createNewsSteps.createNews(randomCategory(), newsTitle, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
-        onView(isRoot()).perform(waitForElement(withId(R.id.news_list_recycler_view), 2000));
+        elementWaiting(withId(R.id.news_list_recycler_view), 10000);
         controlPanelSteps.clickEditNews(position);
         editNewsSteps.editStatus(); // to "not active"
         commonSteps.clickSave();
-        onView(isRoot()).perform(waitForElement(withId(R.id.news_list_recycler_view), 2000));
+        elementWaiting(withId(R.id.news_list_recycler_view), 10000);
         controlPanelSteps.checkNotActiveNewsStatus();
         controlPanelSteps.clickEditNews(position);
         editNewsSteps.editStatus(); // to "active"
@@ -428,7 +425,7 @@ public class NewsTest {
         controlPanelSteps.clickCreateNewsBtn();
         createNewsSteps.createNews(randomCategory(), resources.newsTitleCyr, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
-        onView(isRoot()).perform(waitForElement(withId(R.id.news_list_recycler_view), 3000));
+        elementWaiting(withId(R.id.news_list_recycler_view), 10000);
         controlPanelSteps.clickEditNews(position);
         editNewsSteps.isEditNewsScreen();
         editNewsSteps.editTitle(newTitle);
@@ -451,7 +448,7 @@ public class NewsTest {
         createNewsSteps.createNews(randomCategory(), resources.newsTitleCyr,
                 resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
-        onView(isRoot()).perform(waitForElement(withId(R.id.news_list_recycler_view), 3000));
+        elementWaiting(withId(R.id.news_list_recycler_view), 10000);
         controlPanelSteps.clickEditNews(position);
         editNewsSteps.isEditNewsScreen();
         editNewsSteps.editTitle(newTitle);
@@ -475,7 +472,7 @@ public class NewsTest {
         controlPanelSteps.clickCreateNewsBtn();
         createNewsSteps.createNews(randomCategory(), resources.newsTitleCyr, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
-        onView(isRoot()).perform(waitForElement(withId(R.id.news_list_recycler_view), 3000));
+        elementWaiting(withId(R.id.news_list_recycler_view), 10000);
         controlPanelSteps.clickEditNews(position);
         editNewsSteps.isEditNewsScreen();
         editNewsSteps.editTitle(newTitle);

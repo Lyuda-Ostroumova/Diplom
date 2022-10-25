@@ -1,17 +1,12 @@
 package ru.iteco.fmhandroid.ui.test;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
-import static ru.iteco.fmhandroid.ui.data.Helper.waitForElement;
+import static ru.iteco.fmhandroid.ui.data.Helper.elementWaiting;
 
-import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.rule.ActivityTestRule;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,7 +20,6 @@ import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Helper;
 import ru.iteco.fmhandroid.ui.steps.AuthSteps;
 import ru.iteco.fmhandroid.ui.steps.MainScreenSteps;
-import ru.iteco.fmhandroid.ui.steps.NewsSteps;
 import ru.iteco.fmhandroid.ui.steps.OurMissionSteps;
 
 @RunWith(AllureAndroidJUnit4.class)
@@ -40,14 +34,14 @@ public class OurMissionTest {
 
     @Before
     public void logoutCheck() {
-        onView(isRoot()).perform(waitForElement(withId(R.id.splashscreen_image_view), 3000));
+        elementWaiting(withId(R.id.splashscreen_image_view), 3000);
         try {
-            onView(isRoot()).perform(waitForElement(withText("all claims"), 3000));
+            elementWaiting(withText("all claims"), 3000);
         } catch (Exception e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();
         } finally {
-            onView(isRoot()).perform(waitForElement(withText("all claims"),  2000));
+            elementWaiting(withText("all claims"),  10000);
             mainScreenSteps.clickOurMissionBtn();
         }
     }

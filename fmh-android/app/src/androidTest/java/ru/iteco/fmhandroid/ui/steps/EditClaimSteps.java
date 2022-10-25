@@ -6,10 +6,9 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
-
-import android.os.SystemClock;
+import static ru.iteco.fmhandroid.ui.data.Helper.waitForElement;
 
 import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.ui.screenElements.EditClaimsScreen;
@@ -19,7 +18,7 @@ public class EditClaimSteps {
 
     public void isEditClaimScreen() {
         Allure.step("Проверка элементов экрана Edit Claim");
-        onView(isRoot()).perform(waitFor(3000));
+        onView(isRoot()).perform(waitForElement(withText("Editing"), 10000));
         editClaimsScreen.editClaimScreenName.check(matches(isDisplayed()));
     }
 

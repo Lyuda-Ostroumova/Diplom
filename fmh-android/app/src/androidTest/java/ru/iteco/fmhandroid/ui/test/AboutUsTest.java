@@ -1,17 +1,11 @@
 package ru.iteco.fmhandroid.ui.test;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static ru.iteco.fmhandroid.ui.data.Helper.waitFor;
-import static ru.iteco.fmhandroid.ui.data.Helper.waitForElement;
+import static ru.iteco.fmhandroid.ui.data.Helper.elementWaiting;
 
-
-import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.rule.ActivityTestRule;
 
-import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -23,11 +17,9 @@ import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Helper;
-import ru.iteco.fmhandroid.ui.screenElements.SplashScreenElements;
 import ru.iteco.fmhandroid.ui.steps.AboutUsSteps;
 import ru.iteco.fmhandroid.ui.steps.AuthSteps;
 import ru.iteco.fmhandroid.ui.steps.MainScreenSteps;
-import ru.iteco.fmhandroid.ui.steps.NewsSteps;
 
 @RunWith(AllureAndroidJUnit4.class)
 public class AboutUsTest {
@@ -42,14 +34,14 @@ public class AboutUsTest {
 
     @Before
     public void logoutCheck() {
-        onView(isRoot()).perform(waitForElement(withId(R.id.splashscreen_image_view), 3000));
+        elementWaiting(withId(R.id.splashscreen_image_view), 3000);
         try {
-            onView(isRoot()).perform(waitForElement(withText("all claims"), 3000));
+            elementWaiting(withText("all claims"), 3000);
         } catch (Exception e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();
         } finally {
-            onView(isRoot()).perform(waitForElement(withText("all claims"),  2000));
+            elementWaiting(withText("all claims"),  8000);
             mainScreenSteps.goToAboutScreen();
         }
     }
@@ -64,7 +56,7 @@ public class AboutUsTest {
     @Test
     @DisplayName("Проверка кликабельности ссылок")
     public void shouldCheckLinksAreClickable() {
-        onView(isRoot()).perform(waitForElement(withId(R.id.about_company_info_label_text_view), 2000));
+        elementWaiting(withId(R.id.about_company_info_label_text_view), 10000);
         aboutUsSteps.privacyPolicyLinkClickable();
         aboutUsSteps.termsLinkClickable();
     }
@@ -73,9 +65,9 @@ public class AboutUsTest {
     @DisplayName("Вернуться на предыдущий экран")
     @Description("При нажатии на стрелочку на верхней панели пользователь возвращается на предыдущий экран")
     public void shouldCheckGoBackToPreviousScreen() {
-        onView(isRoot()).perform(waitForElement(withId(R.id.about_company_info_label_text_view), 2000));
+        elementWaiting(withId(R.id.about_company_info_label_text_view), 10000);
         aboutUsSteps.clickReturnBtn();
-        onView(isRoot()).perform(waitForElement(withId(R.id.claim_list_recycler_view), 2000));
+        elementWaiting(withId(R.id.claim_list_recycler_view), 10000);
         mainScreenSteps.isMainScreen();
     }
 
