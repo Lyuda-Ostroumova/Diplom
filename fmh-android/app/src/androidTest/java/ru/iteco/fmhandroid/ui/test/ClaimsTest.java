@@ -511,7 +511,6 @@ public class ClaimsTest {
         claimsSteps.openFilterWindow();
         claimsSteps.clickInProgress();
         commonSteps.clickOkBtn();
-        elementWaiting(withId(R.id.status_processing_image_button), 10000);
         claimsSteps.openClaimIndex(index);
         elementWaiting(withId(R.id.status_processing_image_button), 10000);
         claimsSteps.checkClaimStatus("Open");
@@ -674,7 +673,6 @@ public class ClaimsTest {
         commentSteps.isCommentScreen();
         commentSteps.addComment(initialComment);
         commonSteps.clickSave();
-        elementWaiting(withId(R.id.claim_list_recycler_view), 10000);
         claimsSteps.clickCommentEditBtn(index);
         commentSteps.addComment(editedComment);
         commonSteps.clickSave();

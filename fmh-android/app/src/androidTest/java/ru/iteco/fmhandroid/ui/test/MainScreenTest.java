@@ -179,6 +179,7 @@ public class MainScreenTest {
         commonSteps.clickSave();
         elementWaiting(withText("Claims"), 10000);
         mainScreenElements.titleClaims.perform(swipeUp());
+        elementWaiting(withId(R.id.plan_date_label_material_text_view), 10000);
         mainScreenSteps.clickClaimOnMainScreen(position);
         elementWaiting(withId(R.id.status_processing_image_button), 10000);
         assertEquals(title, claimsSteps.getClaimTitle());

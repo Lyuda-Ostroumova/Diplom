@@ -95,6 +95,7 @@ public class ControlPanelSteps {
         clickSortNewsBtn();
         controlPanelScreen.blockOfNews.perform(swipeDown());
         clickSortNewsBtn();
+        controlPanelScreen.blockOfNews.perform(swipeDown());
         String firstNewsPublicationAfterSecondSorting = getFirstNewsPublicationDateAfterSecondSorting(0);
         assertEquals(firstNewsPublication, firstNewsPublicationAfterSecondSorting);
     }
