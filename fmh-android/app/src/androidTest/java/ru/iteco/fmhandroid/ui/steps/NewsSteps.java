@@ -11,6 +11,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertEquals;
 
+import static ru.iteco.fmhandroid.ui.data.Helper.elementWaiting;
 import static ru.iteco.fmhandroid.ui.data.Helper.withIndex;
 
 import android.os.SystemClock;
@@ -27,6 +28,11 @@ import ru.iteco.fmhandroid.ui.screenElements.NewsScreen;
 public class NewsSteps {
     NewsScreen newsScreen = new NewsScreen();
     Resources resources = new Resources();
+
+    public void newsListLoaded() {
+        Allure.step("Дождаться загрузки списка новостей");
+        elementWaiting(withId(R.id.news_list_recycler_view), 10000);
+    }
 
     public void isNewsScreen() {
         Allure.step("Проверка элементов экрана News");

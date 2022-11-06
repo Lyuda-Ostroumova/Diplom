@@ -13,6 +13,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.not;
 
+import static ru.iteco.fmhandroid.ui.data.Helper.elementWaiting;
 import static ru.iteco.fmhandroid.ui.data.Helper.waitForElement;
 import static ru.iteco.fmhandroid.ui.data.Helper.withIndex;
 
@@ -25,6 +26,11 @@ import ru.iteco.fmhandroid.ui.screenElements.MainScreenElements;
 
 public class MainScreenSteps {
     MainScreenElements mainScreenElements = new MainScreenElements();
+
+    public void checkMainScreenLoaded() {
+        Allure.step("Загрузка страницы");
+        elementWaiting(withText("all claims"), 10000);
+    }
 
     public void isMainScreen() {
         Allure.step("Проверка элементов экрана Main");
@@ -158,6 +164,11 @@ public class MainScreenSteps {
         mainScreenElements.menuBtn.perform(click());
         mainScreenElements.titleMain.check(matches(isDisplayed()));
         mainScreenElements.titleMain.perform(click());
+    }
+
+    public void claimOnMainScreenLoaded() {
+        Allure.step("Загрузка претензии");
+        elementWaiting(withId(R.id.plan_date_label_material_text_view), 10000);
     }
 
 }

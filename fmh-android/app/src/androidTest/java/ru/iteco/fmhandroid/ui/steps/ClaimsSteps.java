@@ -9,6 +9,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.junit.Assert.assertEquals;
+import static ru.iteco.fmhandroid.ui.data.Helper.elementWaiting;
 import static ru.iteco.fmhandroid.ui.data.Helper.isDisplayedWithSwipe;
 import static ru.iteco.fmhandroid.ui.data.Helper.nestedScrollTo;
 
@@ -45,6 +46,8 @@ public class ClaimsSteps {
     public void openClaimIndex(int index) {
         Allure.step("Развернуть претензию");
         claimsScreen.claimList(index).perform(click());
+        elementWaiting(withId(R.id.status_icon_image_view), 10000);
+
     }
 
     public void clickInProgress() {
@@ -198,12 +201,19 @@ public class ClaimsSteps {
         assertEquals(time, getClaimTime());
     }
 
-    public void checkClaim(String text) {
-        Allure.step("Открытие нужной претензии");
-        claimsScreen.claimsList.check(matches(isDisplayed()));
-        if (isDisplayedWithSwipe(onView(withText(text)), 0, true)) {
-            onView(withText(text)).perform(click());
-        }
+    public void claimFullyOpened() {
+        Allure.step("Загрузка всех элементов претензии");
+        elementWaiting(withId(R.id.status_processing_image_button), 10000);
+    }
+
+    public void claimsListLoaded() {
+        Allure.step("Загрузка списка претензий");
+        elementWaiting(withId(R.id.claim_list_recycler_view), 10000);
+    }
+
+    public void emptyScreenShown() {
+        Allure.step("Загрузка пустого экрана");
+        elementWaiting(withId(R.id.empty_claim_list_image_view), 10000);
     }
 
 

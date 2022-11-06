@@ -1,9 +1,6 @@
 package ru.iteco.fmhandroid.ui.test;
 
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static ru.iteco.fmhandroid.ui.data.Helper.authInfo;
-import static ru.iteco.fmhandroid.ui.data.Helper.elementWaiting;
 
 import androidx.test.rule.ActivityTestRule;
 
@@ -20,6 +17,7 @@ import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.steps.AuthSteps;
 import ru.iteco.fmhandroid.ui.steps.CommonSteps;
 import ru.iteco.fmhandroid.ui.steps.MainScreenSteps;
+import ru.iteco.fmhandroid.ui.steps.SplashScreenSteps;
 
 @RunWith(AllureAndroidJUnit4.class)
 public class AuthTest {
@@ -27,19 +25,20 @@ public class AuthTest {
     AuthSteps authSteps = new AuthSteps();
     MainScreenSteps mainScreenSteps = new MainScreenSteps();
     CommonSteps commonSteps = new CommonSteps();
+    SplashScreenSteps splashScreenSteps = new SplashScreenSteps();
 
     @Rule
     public androidx.test.rule.ActivityTestRule<AppActivity> ActivityTestRule = new ActivityTestRule<>(AppActivity.class);
 
     @Before
     public void logoutCheck() {
-        elementWaiting(withId(R.id.splashscreen_image_view), 3000);
+        splashScreenSteps.appDownloading();
         try {
-            elementWaiting(withId(R.id.enter_button), 8000);
+            authSteps.checkAuthPageLoaded();
             authSteps.isAuthScreen();
         } catch (Exception e) {
             mainScreenSteps.clickLogOutBtn();
-            elementWaiting(withId(R.id.enter_button), 8000);
+            authSteps.checkAuthPageLoaded();
         }
     }
 
@@ -56,7 +55,7 @@ public class AuthTest {
     public void shouldLogInWithValidData() {
         authSteps.authWithValidData(authInfo());
         authSteps.clickSignInBtn();
-        elementWaiting(withText("all claims"), 10000);
+        mainScreenSteps.checkMainScreenLoaded();
         mainScreenSteps.isMainScreen();
     }
 
@@ -66,7 +65,7 @@ public class AuthTest {
     public void shouldNotLogInWithInvalidData() {
         authSteps.authWithInvalidData(authInfo());
         authSteps.clickSignInBtn();
-        commonSteps.checkEmptyToast(R.string.wrong_login_or_password, true);
+        commonSteps.checkWrongAuthDataMessage();
     }
 
     @Test
@@ -74,7 +73,7 @@ public class AuthTest {
     @Description("При попытке авторизоваться с пустыми логином и паролем пользователь не авторизуется, вплывает сообщение о незаполненных полях")
     public void shouldNotLogInWithEmptyData() {
         authSteps.clickSignInBtn();
-        commonSteps.checkEmptyToast(R.string.empty_login_or_password, true);
+        commonSteps.checkEmptyAuthDataMessage();
     }
 
     @Test
@@ -83,7 +82,7 @@ public class AuthTest {
     public void shouldNotLogInWithEmptyLogin() {
         authSteps.authWithEmptyLogin(authInfo());
         authSteps.clickSignInBtn();
-        commonSteps.checkEmptyToast(R.string.empty_login_or_password, true);
+        commonSteps.checkEmptyAuthDataMessage();
     }
 
     @Test
@@ -92,7 +91,7 @@ public class AuthTest {
     public void shouldNotLogInWithEmptyPassword() {
         authSteps.authWithEmptyPass(authInfo());
         authSteps.clickSignInBtn();
-        commonSteps.checkEmptyToast(R.string.empty_login_or_password, true);
+        commonSteps.checkEmptyAuthDataMessage();
     }
 
     @Test
@@ -101,7 +100,7 @@ public class AuthTest {
     public void shouldNotLogInWithInvalidPass() {
         authSteps.authWithInvalidPass(authInfo());
         authSteps.clickSignInBtn();
-        commonSteps.checkEmptyToast(R.string.wrong_login_or_password, true);
+        commonSteps.checkWrongAuthDataMessage();
     }
 
     @Test
@@ -110,7 +109,7 @@ public class AuthTest {
     public void shouldNotLogInWithInvalidLogin() {
         authSteps.authWithInvalidLogin(authInfo());
         authSteps.clickSignInBtn();
-        commonSteps.checkEmptyToast(R.string.wrong_login_or_password, true);
+        commonSteps.checkWrongAuthDataMessage();
     }
 
     @Test
@@ -119,7 +118,7 @@ public class AuthTest {
     public void shouldLogInAndLogOut() {
         authSteps.authWithValidData(authInfo());
         authSteps.clickSignInBtn();
-        elementWaiting(withText("all claims"), 10000);
+        mainScreenSteps.checkMainScreenLoaded();
         mainScreenSteps.isMainScreen();
         mainScreenSteps.clickLogOutBtn();
         authSteps.isAuthScreen();

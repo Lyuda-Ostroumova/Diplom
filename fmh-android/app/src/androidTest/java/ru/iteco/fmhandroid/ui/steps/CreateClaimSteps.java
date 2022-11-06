@@ -5,14 +5,28 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+
+import static ru.iteco.fmhandroid.ui.data.Helper.elementWaiting;
 
 import io.qameta.allure.kotlin.Allure;
+import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.screenElements.CommonElements;
 import ru.iteco.fmhandroid.ui.screenElements.CreatingClaimsScreen;
 
 public class CreateClaimSteps {
     CreatingClaimsScreen creatingClaimsScreen = new CreatingClaimsScreen();
     CommonElements commonElements = new CommonElements();
+
+    public void createClaimScreenLoaded() {
+        Allure.step("Загрузка страницы создания претензии");
+        elementWaiting(withId(R.id.title_edit_text), 10000);
+    }
+
+    public void timeFieldLoaded() {
+        Allure.step("Загрузка поля ввода данных");
+        elementWaiting(withId(R.id.time_in_plan_text_input_edit_text), 10000);
+    }
 
 
     public void isCreatingClaimScreen() {

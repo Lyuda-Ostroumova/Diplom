@@ -5,8 +5,12 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+
+import static ru.iteco.fmhandroid.ui.data.Helper.elementWaiting;
 
 import io.qameta.allure.kotlin.Allure;
+import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.screenElements.AboutUsScreen;
 
 public class AboutUsSteps {
@@ -15,6 +19,7 @@ public class AboutUsSteps {
 
     public void isAboutUsScreen() {
         Allure.step("Проверка элементов экрана About us");
+        elementWaiting(withId(R.id.about_company_info_label_text_view), 10000);
         aboutUsScreen.tradeMarkImage.check(matches(isDisplayed()));
         aboutUsScreen.version.check(matches(isDisplayed()));
         aboutUsScreen.versionValue.check(matches(isDisplayed()));
@@ -28,6 +33,7 @@ public class AboutUsSteps {
 
     public void privacyPolicyLinkClickable() {
         Allure.step("Проверка кликабильности ссылки Политика конфиденциальности");
+        elementWaiting(withId(R.id.about_company_info_label_text_view), 10000);
         aboutUsScreen.privacyPolicyLink.check(matches(isClickable()));
     }
 

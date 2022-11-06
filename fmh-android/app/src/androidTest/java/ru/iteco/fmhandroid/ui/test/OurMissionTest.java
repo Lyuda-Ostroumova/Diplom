@@ -1,10 +1,5 @@
 package ru.iteco.fmhandroid.ui.test;
 
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-import static ru.iteco.fmhandroid.ui.data.Helper.elementWaiting;
-
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Before;
@@ -15,12 +10,12 @@ import org.junit.runner.RunWith;
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.junit4.DisplayName;
-import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Helper;
 import ru.iteco.fmhandroid.ui.steps.AuthSteps;
 import ru.iteco.fmhandroid.ui.steps.MainScreenSteps;
 import ru.iteco.fmhandroid.ui.steps.OurMissionSteps;
+import ru.iteco.fmhandroid.ui.steps.SplashScreenSteps;
 
 @RunWith(AllureAndroidJUnit4.class)
 public class OurMissionTest {
@@ -28,20 +23,21 @@ public class OurMissionTest {
     AuthSteps authSteps = new AuthSteps();
     OurMissionSteps ourMissionSteps = new OurMissionSteps();
     MainScreenSteps mainScreenSteps = new MainScreenSteps();
+    SplashScreenSteps splashScreenSteps = new SplashScreenSteps();
 
     @Rule
     public androidx.test.rule.ActivityTestRule<AppActivity> ActivityTestRule = new ActivityTestRule<>(AppActivity.class);
 
     @Before
     public void logoutCheck() {
-        elementWaiting(withId(R.id.splashscreen_image_view), 3000);
+        splashScreenSteps.appDownloading();
         try {
-            elementWaiting(withText("all claims"), 8000);
+            mainScreenSteps.checkMainScreenLoaded();
         } catch (Exception e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();
         } finally {
-            elementWaiting(withText("all claims"),  10000);
+            mainScreenSteps.checkMainScreenLoaded();
             mainScreenSteps.clickOurMissionBtn();
         }
     }

@@ -4,6 +4,9 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
+import static ru.iteco.fmhandroid.ui.data.Helper.elementWaiting;
 
 import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.ui.screenElements.CreatingNewsScreen;
@@ -66,4 +69,5 @@ public class CreateNewsSteps {
         Allure.step("Кликнуть поле время");
         creatingNewsScreen.timeField.perform(click());
     }
+
 }

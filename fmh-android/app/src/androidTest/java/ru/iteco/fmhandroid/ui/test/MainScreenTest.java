@@ -32,6 +32,7 @@ import ru.iteco.fmhandroid.ui.steps.CreateClaimSteps;
 import ru.iteco.fmhandroid.ui.steps.MainScreenSteps;
 import ru.iteco.fmhandroid.ui.steps.NewsSteps;
 import ru.iteco.fmhandroid.ui.steps.OurMissionSteps;
+import ru.iteco.fmhandroid.ui.steps.SplashScreenSteps;
 
 @RunWith(AllureAndroidJUnit4.class)
 public class MainScreenTest {
@@ -45,6 +46,7 @@ public class MainScreenTest {
     CreateClaimSteps createClaim = new CreateClaimSteps();
     Resources resources = new Resources();
     CommonSteps commonSteps = new CommonSteps();
+    SplashScreenSteps splashScreenSteps = new SplashScreenSteps();
 
 
     @Rule
@@ -52,14 +54,14 @@ public class MainScreenTest {
 
     @Before
     public void logoutCheck() {
-        elementWaiting(withId(R.id.splashscreen_image_view), 3000);
+        splashScreenSteps.appDownloading();
         try {
-            elementWaiting(withText("all claims"), 8000);
+            mainScreenSteps.checkMainScreenLoaded();
         } catch (PerformException e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();
         } finally {
-            elementWaiting(withText("all claims"),  8000);
+            mainScreenSteps.checkMainScreenLoaded();
         }
     }
 
@@ -177,11 +179,11 @@ public class MainScreenTest {
         createClaim.fillInTime(time);
         createClaim.fillItDescription(description);
         commonSteps.clickSave();
-        elementWaiting(withText("Claims"), 10000);
+        mainScreenSteps.checkMainScreenLoaded();
         mainScreenElements.titleClaims.perform(swipeUp());
-        elementWaiting(withId(R.id.plan_date_label_material_text_view), 10000);
+        mainScreenSteps.claimOnMainScreenLoaded();
         mainScreenSteps.clickClaimOnMainScreen(position);
-        elementWaiting(withId(R.id.status_processing_image_button), 10000);
+        claimsSteps.claimFullyOpened();
         assertEquals(title, claimsSteps.getClaimTitle());
         assertEquals(description, claimsSteps.getClaimDescription());
         assertEquals(date, claimsSteps.getClaimDate());
@@ -203,7 +205,7 @@ public class MainScreenTest {
     public void shouldExpandSingleClaim() {
         mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         mainScreenSteps.clickClaimOnMainScreen(0);
-        elementWaiting(withId(R.id.status_processing_image_button), 10000);
+        claimsSteps.claimFullyOpened();
         claimsSteps.checkClaimElements();
         claimsSteps.returnToPreviousScreen();
         mainScreenSteps.isMainScreen();

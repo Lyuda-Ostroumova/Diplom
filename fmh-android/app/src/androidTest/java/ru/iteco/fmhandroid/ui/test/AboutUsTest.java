@@ -1,9 +1,5 @@
 package ru.iteco.fmhandroid.ui.test;
 
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static ru.iteco.fmhandroid.ui.data.Helper.elementWaiting;
-
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Before;
@@ -14,12 +10,12 @@ import org.junit.runner.RunWith;
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.junit4.DisplayName;
-import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.Helper;
 import ru.iteco.fmhandroid.ui.steps.AboutUsSteps;
 import ru.iteco.fmhandroid.ui.steps.AuthSteps;
 import ru.iteco.fmhandroid.ui.steps.MainScreenSteps;
+import ru.iteco.fmhandroid.ui.steps.SplashScreenSteps;
 
 @RunWith(AllureAndroidJUnit4.class)
 public class AboutUsTest {
@@ -27,6 +23,7 @@ public class AboutUsTest {
     AuthSteps authSteps = new AuthSteps();
     AboutUsSteps aboutUsSteps = new AboutUsSteps();
     MainScreenSteps mainScreenSteps = new MainScreenSteps();
+    SplashScreenSteps splashScreenSteps = new SplashScreenSteps();
 
 
     @Rule
@@ -34,14 +31,14 @@ public class AboutUsTest {
 
     @Before
     public void logoutCheck() {
-        elementWaiting(withId(R.id.splashscreen_image_view), 3000);
+        splashScreenSteps.appDownloading();
         try {
-            elementWaiting(withText("all claims"), 8000);
+            mainScreenSteps.checkMainScreenLoaded();
         } catch (Exception e) {
             authSteps.authWithValidData(Helper.authInfo());
             authSteps.clickSignInBtn();
         } finally {
-            elementWaiting(withText("all claims"),  8000);
+            mainScreenSteps.checkMainScreenLoaded();
             mainScreenSteps.goToAboutScreen();
         }
     }
@@ -56,7 +53,6 @@ public class AboutUsTest {
     @Test
     @DisplayName("Проверка кликабельности ссылок")
     public void shouldCheckLinksAreClickable() {
-        elementWaiting(withId(R.id.about_company_info_label_text_view), 10000);
         aboutUsSteps.privacyPolicyLinkClickable();
         aboutUsSteps.termsLinkClickable();
     }
@@ -65,9 +61,9 @@ public class AboutUsTest {
     @DisplayName("Вернуться на предыдущий экран")
     @Description("При нажатии на стрелочку на верхней панели пользователь возвращается на предыдущий экран")
     public void shouldCheckGoBackToPreviousScreen() {
-        elementWaiting(withId(R.id.about_company_info_label_text_view), 10000);
+        aboutUsSteps.isAboutUsScreen();
         aboutUsSteps.clickReturnBtn();
-        elementWaiting(withId(R.id.claim_list_recycler_view), 10000);
+        mainScreenSteps.checkMainScreenLoaded();
         mainScreenSteps.isMainScreen();
     }
 

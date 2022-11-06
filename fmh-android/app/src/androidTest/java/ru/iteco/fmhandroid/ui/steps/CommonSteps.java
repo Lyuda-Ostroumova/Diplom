@@ -4,10 +4,14 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.core.IsNot.not;
 
+import static ru.iteco.fmhandroid.ui.data.Helper.elementWaiting;
+
 import io.qameta.allure.kotlin.Allure;
+import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.screenElements.CommonElements;
 import ru.iteco.fmhandroid.ui.screenElements.TimeScreen;
 
@@ -45,7 +49,6 @@ public class CommonSteps {
     }
 
     public void checkEmptyToast(int id, boolean visible) {
-        Allure.step("Проверка текста предупреджения");
         if (visible) {
             commonElements.emptyToast(id).check(matches(isDisplayed()));
         } else {
@@ -53,13 +56,42 @@ public class CommonSteps {
         }
     }
 
+    public void checkUnableToEditClaimMessage() {
+        Allure.step("Проверка предупреджения");
+        checkEmptyToast(R.string.inability_to_edit_claim, true);
+    }
+
+    public void checkCancellationMessage() {
+        Allure.step("Проверка предупреджения");
+        checkEmptyMessage(R.string.cancellation, true);
+    }
+
+    public void checkEmptyFieldMessage() {
+        Allure.step("Проверка предупреджения");
+        checkEmptyToast(R.string.toast_empty_field, true);
+    }
+
+    public void checkWrongAuthDataMessage() {
+        Allure.step("Проверка предупреджения");
+        checkEmptyToast(R.string.wrong_login_or_password, true);
+    }
+
+    public void checkEmptyAuthDataMessage() {
+        Allure.step("Проверка предупреджения");
+        checkEmptyToast(R.string.empty_login_or_password, true);
+    }
+
     public void checkErrorToast(int id, boolean visible) {
-        Allure.step("Проверка текста тоста");
         if (visible) {
             commonElements.errorToast(id).check(matches(isDisplayed()));
         } else {
             commonElements.errorToast(id).check(matches(not(isDisplayed())));
         }
+    }
+
+    public void checkEmptyFieldError() {
+        Allure.step("Проверка текста тоста");
+        checkErrorToast(R.string.empty_fields, true);
     }
 
     public void checkWrongData(String text, boolean visible) {
@@ -99,10 +131,12 @@ public class CommonSteps {
         clickOkBtn();
     }
 
-    public void checkWrongTimeError() {
+    public void checkInvalidTimeError() {
         Allure.step("Проверка предупреждения о невалидном значении времени");
+        elementWaiting(withText("Enter a valid time"), 10000);
         commonElements.wrongTimeError.check(matches(isDisplayed()));
     }
+
 
 
 }
