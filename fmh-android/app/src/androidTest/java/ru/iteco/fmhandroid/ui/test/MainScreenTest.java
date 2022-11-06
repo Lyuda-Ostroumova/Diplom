@@ -203,7 +203,6 @@ public class MainScreenTest {
     @DisplayName("Развернуть/свернуть отдельную пртенезию")
     @Description("При нажатии на претензию открывается окно с претензией и ее содержанием")
     public void shouldExpandSingleClaim() {
-        mainScreenElements.titleClaims.perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         mainScreenSteps.clickClaimOnMainScreen(0);
         claimsSteps.claimFullyOpened();
         claimsSteps.checkClaimElements();
