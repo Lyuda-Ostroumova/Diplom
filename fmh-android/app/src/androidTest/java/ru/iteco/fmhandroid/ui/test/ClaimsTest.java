@@ -298,7 +298,7 @@ public class ClaimsTest {
         createClaimSteps.fillInTitle(resources.claimTitleLatin);
         createClaimSteps.fillItDescription(resources.claimDescriptionLatin);
         commonSteps.clickSave();
-        commonSteps.checkEmptyMessage(R.string.empty_fields, true);
+        commonSteps.checkFillEmptyFieldsMessage();
     }
 
     @Test
@@ -309,7 +309,7 @@ public class ClaimsTest {
         createClaimSteps.createClaimScreenLoaded();
         createClaimSteps.isCreatingClaimScreen();
         commonSteps.clickSave();
-        commonSteps.checkEmptyMessage(R.string.empty_fields, true);
+        commonSteps.checkFillEmptyFieldsMessage();
     }
 
     @Test
@@ -346,7 +346,7 @@ public class ClaimsTest {
         createClaimSteps.fillInTime(resources.claimPublicationTime);
         createClaimSteps.fillItDescription(resources.claimDescriptionSpace);
         commonSteps.clickSave();
-        commonSteps.checkEmptyMessage(R.string.empty_fields, true);
+        commonSteps.checkFillEmptyFieldsMessage();
     }
 
     @Test // претензия сохраняется
@@ -405,11 +405,11 @@ public class ClaimsTest {
         createClaimSteps.createClaimScreenLoaded();
         createClaimSteps.isCreatingClaimScreen();
         commonSteps.clickCancel();
-        commonSteps.checkEmptyMessage(R.string.cancellation, true);
+        commonSteps.checkChangesMessage();
         commonSteps.clickCancelInDialog();
         createClaimSteps.isCreatingClaimScreen();
         commonSteps.clickCancel();
-        commonSteps.checkEmptyMessage(R.string.cancellation, true);
+        commonSteps.checkChangesMessage();
         commonSteps.clickOkBtn();
         claimsSteps.isClaimsScreen();
     }
@@ -590,7 +590,7 @@ public class ClaimsTest {
         commentSteps.isCommentScreen();
         commentSteps.addComment(comment);
         commonSteps.clickSave();
-        commonSteps.checkEmptyFieldMessage();
+        commonSteps.checkEmptyFieldToast();
     }
 
     @Test
@@ -614,7 +614,7 @@ public class ClaimsTest {
         claimsSteps.clickAddComment();
         commentSteps.isCommentScreen();
         commonSteps.clickSave();
-        commonSteps.checkEmptyFieldMessage();
+        commonSteps.checkEmptyFieldToast();
     }
 
     @Test // комментарий сохраняется
@@ -778,7 +778,7 @@ public class ClaimsTest {
         claimsSteps.openClaimIndex(index);
         claimsSteps.claimFullyOpened();
         claimsSteps.clickEditClaim();
-        commonSteps.checkUnableToEditClaimMessage();
+        commonSteps.checkUnableToEditClaimToast();
         claimsSteps.returnToPreviousScreen();
         claimsSteps.openFilterWindow();
         claimsSteps.clickInProgress();
@@ -786,7 +786,7 @@ public class ClaimsTest {
         commonSteps.clickOkBtn();
         claimsSteps.openClaimIndex(index);
         claimsSteps.clickEditClaim();
-        commonSteps.checkUnableToEditClaimMessage();
+        commonSteps.checkUnableToEditClaimToast();
         claimsSteps.returnToPreviousScreen();
         claimsSteps.openFilterWindow();
         claimsSteps.clickExecuted();
@@ -794,7 +794,7 @@ public class ClaimsTest {
         commonSteps.clickOkBtn();
         claimsSteps.openClaimIndex(index);
         claimsSteps.clickEditClaim();
-        commonSteps.checkUnableToEditClaimMessage();
+        commonSteps.checkUnableToEditClaimToast();
         claimsSteps.returnToPreviousScreen();
         claimsSteps.openFilterWindow();
         claimsSteps.clickCancelled();
@@ -839,11 +839,11 @@ public class ClaimsTest {
         claimsSteps.claimFullyOpened();
         claimsSteps.clickEditClaim();
         commonSteps.clickCancel();
-        commonSteps.checkCancellationMessage();
+        commonSteps.checkCancellationToast();
         commonSteps.clickCancelInDialog();
         editClaimsSteps.isEditClaimScreen();
         commonSteps.clickCancel();
-        commonSteps.checkCancellationMessage();
+        commonSteps.checkCancellationToast();
         commonSteps.clickOkBtn();
         claimsSteps.statusIconIsDisplayed();
     }

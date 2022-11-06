@@ -397,7 +397,8 @@ public class NewsTest {
         String newsTitle = resources.newsTitleCyr;
         newsSteps.clickEditBtn();
         controlPanelSteps.clickCreateNewsBtn();
-        createNewsSteps.createNews(randomCategory(), newsTitle, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
+        createNewsSteps.createNews(randomCategory(), newsTitle, resources.newsPublicationDate,
+                resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
         newsSteps.newsListLoaded();
         controlPanelSteps.clickEditNews(position);
@@ -420,7 +421,8 @@ public class NewsTest {
         String newDescription = "Отредактированное описание";
         newsSteps.clickEditBtn();
         controlPanelSteps.clickCreateNewsBtn();
-        createNewsSteps.createNews(randomCategory(), resources.newsTitleCyr, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
+        createNewsSteps.createNews(randomCategory(), resources.newsTitleCyr, resources.newsPublicationDate,
+                resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
         newsSteps.newsListLoaded();
         controlPanelSteps.clickEditNews(position);
@@ -467,7 +469,8 @@ public class NewsTest {
         String newDescription = "Новое описание";
         newsSteps.clickEditBtn();
         controlPanelSteps.clickCreateNewsBtn();
-        createNewsSteps.createNews(randomCategory(), resources.newsTitleCyr, resources.newsPublicationDate, resources.newsPublicationTime, resources.newsDescriptionCyr);
+        createNewsSteps.createNews(randomCategory(), resources.newsTitleCyr, resources.newsPublicationDate,
+                resources.newsPublicationTime, resources.newsDescriptionCyr);
         commonSteps.clickSave();
         newsSteps.newsListLoaded();
         controlPanelSteps.clickEditNews(position);

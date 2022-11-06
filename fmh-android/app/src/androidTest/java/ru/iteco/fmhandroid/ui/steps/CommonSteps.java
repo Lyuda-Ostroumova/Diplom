@@ -40,12 +40,21 @@ public class CommonSteps {
     }
 
     public void checkEmptyMessage(int id, boolean visible) {
-        Allure.step("Проверка текста сообщения");
         if (visible) {
             commonElements.emptyMessage(id).check(matches(isDisplayed()));
         } else {
             commonElements.emptyMessage(id).check(matches(not(isDisplayed())));
         }
+    }
+
+    public void checkFillEmptyFieldsMessage() {
+        Allure.step("Проверка текста сообщения");
+        checkEmptyMessage(R.string.empty_fields, true);
+    }
+
+    public void checkChangesMessage() {
+        Allure.step("Проверка текста сообщения");
+        checkEmptyMessage(R.string.cancellation, true);
     }
 
     public void checkEmptyToast(int id, boolean visible) {
@@ -56,27 +65,27 @@ public class CommonSteps {
         }
     }
 
-    public void checkUnableToEditClaimMessage() {
+    public void checkUnableToEditClaimToast() {
         Allure.step("Проверка предупреджения");
         checkEmptyToast(R.string.inability_to_edit_claim, true);
     }
 
-    public void checkCancellationMessage() {
+    public void checkCancellationToast() {
         Allure.step("Проверка предупреджения");
         checkEmptyMessage(R.string.cancellation, true);
     }
 
-    public void checkEmptyFieldMessage() {
+    public void checkEmptyFieldToast() {
         Allure.step("Проверка предупреджения");
         checkEmptyToast(R.string.toast_empty_field, true);
     }
 
-    public void checkWrongAuthDataMessage() {
+    public void checkWrongAuthDataToast() {
         Allure.step("Проверка предупреджения");
         checkEmptyToast(R.string.wrong_login_or_password, true);
     }
 
-    public void checkEmptyAuthDataMessage() {
+    public void checkEmptyAuthDataToast() {
         Allure.step("Проверка предупреджения");
         checkEmptyToast(R.string.empty_login_or_password, true);
     }
@@ -136,7 +145,6 @@ public class CommonSteps {
         elementWaiting(withText("Enter a valid time"), 10000);
         commonElements.wrongTimeError.check(matches(isDisplayed()));
     }
-
 
 
 }

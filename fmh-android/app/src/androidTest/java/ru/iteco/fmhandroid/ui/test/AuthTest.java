@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Description;
 import io.qameta.allure.kotlin.junit4.DisplayName;
-import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.steps.AuthSteps;
 import ru.iteco.fmhandroid.ui.steps.CommonSteps;
@@ -65,7 +64,7 @@ public class AuthTest {
     public void shouldNotLogInWithInvalidData() {
         authSteps.authWithInvalidData(authInfo());
         authSteps.clickSignInBtn();
-        commonSteps.checkWrongAuthDataMessage();
+        commonSteps.checkWrongAuthDataToast();
     }
 
     @Test
@@ -73,7 +72,7 @@ public class AuthTest {
     @Description("При попытке авторизоваться с пустыми логином и паролем пользователь не авторизуется, вплывает сообщение о незаполненных полях")
     public void shouldNotLogInWithEmptyData() {
         authSteps.clickSignInBtn();
-        commonSteps.checkEmptyAuthDataMessage();
+        commonSteps.checkEmptyAuthDataToast();
     }
 
     @Test
@@ -82,7 +81,7 @@ public class AuthTest {
     public void shouldNotLogInWithEmptyLogin() {
         authSteps.authWithEmptyLogin(authInfo());
         authSteps.clickSignInBtn();
-        commonSteps.checkEmptyAuthDataMessage();
+        commonSteps.checkEmptyAuthDataToast();
     }
 
     @Test
@@ -91,7 +90,7 @@ public class AuthTest {
     public void shouldNotLogInWithEmptyPassword() {
         authSteps.authWithEmptyPass(authInfo());
         authSteps.clickSignInBtn();
-        commonSteps.checkEmptyAuthDataMessage();
+        commonSteps.checkEmptyAuthDataToast();
     }
 
     @Test
@@ -100,7 +99,7 @@ public class AuthTest {
     public void shouldNotLogInWithInvalidPass() {
         authSteps.authWithInvalidPass(authInfo());
         authSteps.clickSignInBtn();
-        commonSteps.checkWrongAuthDataMessage();
+        commonSteps.checkWrongAuthDataToast();
     }
 
     @Test
@@ -109,7 +108,7 @@ public class AuthTest {
     public void shouldNotLogInWithInvalidLogin() {
         authSteps.authWithInvalidLogin(authInfo());
         authSteps.clickSignInBtn();
-        commonSteps.checkWrongAuthDataMessage();
+        commonSteps.checkWrongAuthDataToast();
     }
 
     @Test
